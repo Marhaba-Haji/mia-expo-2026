@@ -3,24 +3,59 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import SiteHeader from "@/components/layout/SiteHeader";
+import SiteFooter from "@/components/layout/SiteFooter";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import About from "./pages/About";
+import WhyExhibit from "./pages/WhyExhibit";
+import ExhibitorPackages from "./pages/ExhibitorPackages";
+import SponsorOpportunities from "./pages/SponsorOpportunities";
+import Programme from "./pages/Programme";
+import Speakers from "./pages/Speakers";
+import FloorPlan from "./pages/FloorPlan";
+import VisitorInfo from "./pages/VisitorInfo";
+import NewsPress from "./pages/NewsPress";
+import Contact from "./pages/Contact";
+import ExhibitorPortal from "./pages/ExhibitorPortal";
+import AdminPortal from "./pages/AdminPortal";
+import Directory from "./pages/Directory";
+import Matchmaking from "./pages/Matchmaking";
 
 const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
+    <HelmetProvider>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <SiteHeader />
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/why-exhibit" element={<WhyExhibit />} />
+            <Route path="/exhibitor-packages" element={<ExhibitorPackages />} />
+            <Route path="/sponsor-opportunities" element={<SponsorOpportunities />} />
+            <Route path="/programme" element={<Programme />} />
+            <Route path="/speakers" element={<Speakers />} />
+            <Route path="/floor-plan" element={<FloorPlan />} />
+            <Route path="/visitor-info" element={<VisitorInfo />} />
+            <Route path="/news" element={<NewsPress />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/exhibitor-portal" element={<ExhibitorPortal />} />
+            <Route path="/admin" element={<AdminPortal />} />
+            <Route path="/directory" element={<Directory />} />
+            <Route path="/matchmaking" element={<Matchmaking />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+          <SiteFooter />
+        </BrowserRouter>
+      </TooltipProvider>
+    </HelmetProvider>
   </QueryClientProvider>
 );
 
