@@ -6,12 +6,13 @@ import { setWebhookUrl, getWebhookUrl } from "@/lib/webhook";
 
 export default function AdminPortal() {
   const [webhook, setWebhook] = useState("");
-  const FIXED_SHEET_URL = "https://docs.google.com/spreadsheets/d/1TH5F3Wvv7IFenQmzjTSt0nQpO9fefoVlyM0SAHNhJzU/edit";
+  const [sheetUrl, setSheetUrl] = useState(localStorage.getItem('mia_sheet_url') || '');
 
   useEffect(() => { setWebhook(getWebhookUrl()); }, []);
 
   const save = () => {
     setWebhookUrl(webhook);
+    localStorage.setItem('mia_sheet_url', sheetUrl);
   };
 
   return (
@@ -23,12 +24,17 @@ export default function AdminPortal() {
           <div className="rounded-xl border bg-card p-6 space-y-3">
             <h3 className="font-medium">Integration Settings</h3>
             <Input placeholder="Webhook URL (Zapier / Apps Script)" value={webhook} onChange={(e)=>setWebhook(e.target.value)} />
+            <Input placeholder="Google Sheet public URL (for embed)" value={sheetUrl} onChange={(e)=>setSheetUrl(e.target.value)} />
             <Button onClick={save}>Save</Button>
-            <p className="text-xs text-muted-foreground">Sheets are hardcoded to the MIA master spreadsheet below. Set a Webhook URL to enable writing registrations.</p>
+            <p className="text-xs text-muted-foreground">Tip: Use a Google Apps Script Web App or Zapier Catch Hook to push form data into dedicated Google Sheets.</p>
           </div>
           <div className="rounded-xl border bg-card p-6">
             <h3 className="font-medium mb-2">Live Sheets Embed</h3>
-            <iframe title="Google Sheet" src={FIXED_SHEET_URL} className="w-full h-[420px] rounded-md border" />
+            {sheetUrl ? (
+              <iframe title="Google Sheet" src={sheetUrl} className="w-full h-[420px] rounded-md border" />
+            ) : (
+              <p className="text-sm text-muted-foreground">Paste a public Google Sheet URL to embed data.</p>
+            )}
           </div>
         </div>
       </section>
