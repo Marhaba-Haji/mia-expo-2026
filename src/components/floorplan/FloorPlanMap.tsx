@@ -19,7 +19,7 @@ export default function FloorPlanMap() {
         <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-sm bg-accent/30 inline-block border"/> Reserved</span>
         <span className="inline-flex items-center gap-2"><i className="h-3 w-3 rounded-sm bg-primary/30 inline-block border"/> Sold</span>
       </div>
-      <div className="grid grid-cols-6 gap-3">
+      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
         {booths.map(b => (
           <div key={b.id} className={`aspect-square rounded-md border ${statusCls(b.status)} flex items-center justify-center text-xs`}
                aria-label={`Booth ${b.id} ${statusLabel(b.status)}`}>

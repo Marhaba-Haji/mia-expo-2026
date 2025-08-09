@@ -33,10 +33,10 @@ export default function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-2">
-          <Button asChild variant="premium" size="sm">
+          <Button asChild variant="premium" size="sm" className="hidden sm:inline-flex">
             <Link to="/exhibitor-portal">Exhibitor Portal</Link>
           </Button>
-          <Button asChild variant="hero" size="sm">
+          <Button asChild variant="hero" size="sm" className="inline-flex">
             <Link to="/visitor-info">{t('hero.ctaTickets')}</Link>
           </Button>
           <div className="ml-2 hidden md:flex items-center gap-2">

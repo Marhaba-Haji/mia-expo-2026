@@ -9,7 +9,7 @@ export default function Gallery() {
         <Carousel className="w-full">
           <CarouselContent>
             {items.map((i) => (
-              <CarouselItem key={i} className="basis-full md:basis-1/3">
+              <CarouselItem key={i} className="basis-full sm:basis-1/2 md:basis-1/3">
                 <div className="h-48 rounded-xl border bg-soft-gradient shadow-elegant" aria-label={`Gallery item ${i+1}`} />
               </CarouselItem>
             ))}

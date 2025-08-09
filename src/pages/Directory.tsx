@@ -24,9 +24,9 @@ export default function Directory() {
       <section className="container py-12">
         <h1 className="font-brand text-4xl mb-6">Exhibitor Directory</h1>
         <div className="flex flex-wrap gap-3 mb-6">
-          <Input placeholder="Search by name" value={q} onChange={(e)=>setQ(e.target.value)} className="w-64" />
+          <Input placeholder="Search by name" value={q} onChange={(e)=>setQ(e.target.value)} className="w-full md:w-64" />
           <Select value={sector} onValueChange={setSector}>
-            <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
+            <SelectTrigger className="w-full md:w-48"><SelectValue /></SelectTrigger>
             <SelectContent>
               {['All','F&B','Manufacturing','Healthcare','Agri'].map(s => <SelectItem key={s} value={s}>{s}</SelectItem>)}
             </SelectContent>
