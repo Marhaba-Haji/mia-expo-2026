@@ -20,7 +20,7 @@ export default function SiteHeader() {
         <nav className="hidden md:flex items-center gap-6 text-sm">
           <NavLink to="/about" className={navItemCls}>{t('nav.about')}</NavLink>
           <NavLink to="/why-exhibit" className={navItemCls}>{t('nav.whyExhibit')}</NavLink>
-          <NavLink to="/exhibitor-packages" className={navItemCls}>{t('nav.packages')}</NavLink>
+          
           <NavLink to="/sponsor-opportunities" className={navItemCls}>{t('nav.sponsors')}</NavLink>
           <NavLink to="/programme" className={navItemCls}>{t('nav.programme')}</NavLink>
           <NavLink to="/speakers" className={navItemCls}>{t('nav.speakers')}</NavLink>
