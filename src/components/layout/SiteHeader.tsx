@@ -39,18 +39,6 @@ export default function SiteHeader() {
           <Button asChild variant="hero" size="sm" className="inline-flex">
             <Link to="/visitor-info">{t('hero.ctaTickets')}</Link>
           </Button>
-          <div className="ml-2 hidden md:flex items-center gap-2">
-            <Globe2 className="h-4 w-4 text-muted-foreground" aria-hidden />
-            <select
-              aria-label="Change language"
-              className="bg-background border rounded-md px-2 py-1 text-sm"
-              value={i18n.language}
-              onChange={(e) => i18n.changeLanguage(e.target.value)}
-            >
-              <option value="en">EN</option>
-              <option value="hi">हिं</option>
-            </select>
-          </div>
         </div>
       </div>
     </header>
