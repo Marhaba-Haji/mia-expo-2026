@@ -1,24 +1,44 @@
-import { Building2, Factory, Salad, Stethoscope, Package, Zap } from 'lucide-react'
+import infrastructureImage from '@/assets/infrastructure-real-estate.jpg'
+import manufacturingImage from '@/assets/manufacturing-machinery.jpg'
+import hospitalityImage from '@/assets/hospitality.jpg'
 
-const sectors = [
-  { icon: Building2, title: 'Halal & Ethical F&B' },
-  { icon: Factory, title: 'Manufacturing & Machinery' },
-  { icon: Salad, title: 'Agri & Organics' },
-  { icon: Stethoscope, title: 'Healthcare & Wellness' },
-  { icon: Package, title: 'Retail & E-commerce' },
-  { icon: Zap, title: 'Technology & Startups' },
+const focusIndustries = [
+  { 
+    title: 'Infrastructure and Real Estate', 
+    image: infrastructureImage,
+    description: 'Construction, real estate development, and infrastructure projects'
+  },
+  { 
+    title: 'Manufacturing and Machinery', 
+    image: manufacturingImage,
+    description: 'Industrial manufacturing, machinery, and production equipment'
+  },
+  { 
+    title: 'Hospitality', 
+    image: hospitalityImage,
+    description: 'Hotels, restaurants, tourism, and hospitality services'
+  },
 ]
 
 export default function Sectors() {
   return (
     <section className="py-12 md:py-16">
       <div className="container">
-        <h2 className="font-brand text-3xl mb-6">Industry Sectors</h2>
+        <h2 className="font-brand text-3xl mb-6">Focus Industries</h2>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {sectors.map((s) => (
-            <article key={s.title} className="rounded-xl border bg-card p-6 hover:shadow-glow transition-shadow">
-              <s.icon className="h-6 w-6 text-primary mb-3" aria-hidden />
-              <h3 className="font-medium">{s.title}</h3>
+          {focusIndustries.map((industry) => (
+            <article key={industry.title} className="rounded-xl border bg-card overflow-hidden hover:shadow-glow transition-shadow group">
+              <div className="aspect-video overflow-hidden">
+                <img 
+                  src={industry.image} 
+                  alt={industry.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="font-semibold text-lg mb-2">{industry.title}</h3>
+                <p className="text-muted-foreground text-sm">{industry.description}</p>
+              </div>
             </article>
           ))}
         </div>
