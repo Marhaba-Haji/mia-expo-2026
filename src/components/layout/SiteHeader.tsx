@@ -28,7 +28,7 @@ export default function SiteHeader() {
           <NavLink to="/visitor-info" className={navItemCls}>{t('nav.visitors')}</NavLink>
           <NavLink to="/news" className={navItemCls}>{t('nav.news')}</NavLink>
           <NavLink to="/directory" className={navItemCls}>{t('nav.directory')}</NavLink>
-          <NavLink to="/matchmaking" className={navItemCls}>{t('nav.matchmaking')}</NavLink>
+          
           <NavLink to="/contact" className={navItemCls}>{t('nav.contact')}</NavLink>
         </nav>
 
