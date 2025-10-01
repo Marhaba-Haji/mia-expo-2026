@@ -22,6 +22,8 @@ import ExhibitorPortal from "./pages/ExhibitorPortal";
 import AdminPortal from "./pages/AdminPortal";
 import Directory from "./pages/Directory";
 import Matchmaking from "./pages/Matchmaking";
+import Auth from "./pages/Auth";
+import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -46,9 +48,11 @@ const App = () => (
             <Route path="/news" element={<NewsPress />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/exhibitor-portal" element={<ExhibitorPortal />} />
-            <Route path="/admin" element={<AdminPortal />} />
+            <Route path="/admin-portal" element={<AdminPortal />} />
             <Route path="/directory" element={<Directory />} />
             <Route path="/matchmaking" element={<Matchmaking />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/admin" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
