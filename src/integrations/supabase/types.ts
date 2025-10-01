@@ -14,16 +14,506 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      donors: {
+        Row: {
+          amount: number | null
+          anonymous: boolean | null
+          created_at: string | null
+          donation_type: string | null
+          email: string | null
+          id: string
+          message: string | null
+          name: string
+          phone: string | null
+        }
+        Insert: {
+          amount?: number | null
+          anonymous?: boolean | null
+          created_at?: string | null
+          donation_type?: string | null
+          email?: string | null
+          id?: string
+          message?: string | null
+          name: string
+          phone?: string | null
+        }
+        Update: {
+          amount?: number | null
+          anonymous?: boolean | null
+          created_at?: string | null
+          donation_type?: string | null
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string
+          phone?: string | null
+        }
+        Relationships: []
+      }
+      exhibitors: {
+        Row: {
+          booth_number: string | null
+          company_name: string
+          contact_person: string | null
+          created_at: string | null
+          description: string | null
+          email: string | null
+          id: string
+          logo_url: string | null
+          package_type: string | null
+          phone: string | null
+          status: string | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          booth_number?: string | null
+          company_name: string
+          contact_person?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          logo_url?: string | null
+          package_type?: string | null
+          phone?: string | null
+          status?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          booth_number?: string | null
+          company_name?: string
+          contact_person?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          logo_url?: string | null
+          package_type?: string | null
+          phone?: string | null
+          status?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      floor_plan: {
+        Row: {
+          booth_number: string
+          created_at: string | null
+          exhibitor_id: string | null
+          height: number | null
+          id: string
+          position_x: number | null
+          position_y: number | null
+          price: number | null
+          status: string | null
+          updated_at: string | null
+          width: number | null
+        }
+        Insert: {
+          booth_number: string
+          created_at?: string | null
+          exhibitor_id?: string | null
+          height?: number | null
+          id?: string
+          position_x?: number | null
+          position_y?: number | null
+          price?: number | null
+          status?: string | null
+          updated_at?: string | null
+          width?: number | null
+        }
+        Update: {
+          booth_number?: string
+          created_at?: string | null
+          exhibitor_id?: string | null
+          height?: number | null
+          id?: string
+          position_x?: number | null
+          position_y?: number | null
+          price?: number | null
+          status?: string | null
+          updated_at?: string | null
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "floor_plan_exhibitor_id_fkey"
+            columns: ["exhibitor_id"]
+            isOneToOne: false
+            referencedRelation: "exhibitors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      media_bites: {
+        Row: {
+          author: string | null
+          content: string
+          created_at: string | null
+          featured: boolean | null
+          id: string
+          media_type: string | null
+          media_url: string | null
+          published_date: string | null
+          tags: string[] | null
+          thumbnail_url: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          author?: string | null
+          content: string
+          created_at?: string | null
+          featured?: boolean | null
+          id?: string
+          media_type?: string | null
+          media_url?: string | null
+          published_date?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string | null
+          content?: string
+          created_at?: string | null
+          featured?: boolean | null
+          id?: string
+          media_type?: string | null
+          media_url?: string | null
+          published_date?: string | null
+          tags?: string[] | null
+          thumbnail_url?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          email: string
+          full_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          full_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          full_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      programme_schedule: {
+        Row: {
+          capacity: number | null
+          created_at: string | null
+          description: string | null
+          end_time: string
+          id: string
+          location: string | null
+          registration_required: boolean | null
+          session_type: string | null
+          speaker_ids: string[] | null
+          start_time: string
+          title: string
+          track: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          capacity?: number | null
+          created_at?: string | null
+          description?: string | null
+          end_time: string
+          id?: string
+          location?: string | null
+          registration_required?: boolean | null
+          session_type?: string | null
+          speaker_ids?: string[] | null
+          start_time: string
+          title: string
+          track?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          capacity?: number | null
+          created_at?: string | null
+          description?: string | null
+          end_time?: string
+          id?: string
+          location?: string | null
+          registration_required?: boolean | null
+          session_type?: string | null
+          speaker_ids?: string[] | null
+          start_time?: string
+          title?: string
+          track?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      speakers: {
+        Row: {
+          bio: string | null
+          company: string | null
+          created_at: string | null
+          email: string | null
+          expertise: string[] | null
+          full_name: string
+          id: string
+          linkedin_url: string | null
+          photo_url: string | null
+          title: string | null
+          twitter_url: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          company?: string | null
+          created_at?: string | null
+          email?: string | null
+          expertise?: string[] | null
+          full_name: string
+          id?: string
+          linkedin_url?: string | null
+          photo_url?: string | null
+          title?: string | null
+          twitter_url?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          company?: string | null
+          created_at?: string | null
+          email?: string | null
+          expertise?: string[] | null
+          full_name?: string
+          id?: string
+          linkedin_url?: string | null
+          photo_url?: string | null
+          title?: string | null
+          twitter_url?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      sponsors: {
+        Row: {
+          amount: number | null
+          company_name: string
+          contact_person: string | null
+          created_at: string | null
+          description: string | null
+          email: string | null
+          id: string
+          logo_url: string | null
+          phone: string | null
+          sponsorship_tier: string | null
+          status: string | null
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          amount?: number | null
+          company_name: string
+          contact_person?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          logo_url?: string | null
+          phone?: string | null
+          sponsorship_tier?: string | null
+          status?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          amount?: number | null
+          company_name?: string
+          contact_person?: string | null
+          created_at?: string | null
+          description?: string | null
+          email?: string | null
+          id?: string
+          logo_url?: string | null
+          phone?: string | null
+          sponsorship_tier?: string | null
+          status?: string | null
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
+      team_members: {
+        Row: {
+          bio: string | null
+          created_at: string | null
+          department: string | null
+          display_order: number | null
+          email: string | null
+          full_name: string
+          id: string
+          phone: string | null
+          photo_url: string | null
+          position: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string | null
+          department?: string | null
+          display_order?: number | null
+          email?: string | null
+          full_name: string
+          id?: string
+          phone?: string | null
+          photo_url?: string | null
+          position?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string | null
+          department?: string | null
+          display_order?: number | null
+          email?: string | null
+          full_name?: string
+          id?: string
+          phone?: string | null
+          photo_url?: string | null
+          position?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          approved: boolean | null
+          author_company: string | null
+          author_name: string
+          author_title: string | null
+          content: string
+          created_at: string | null
+          featured: boolean | null
+          id: string
+          photo_url: string | null
+          rating: number | null
+        }
+        Insert: {
+          approved?: boolean | null
+          author_company?: string | null
+          author_name: string
+          author_title?: string | null
+          content: string
+          created_at?: string | null
+          featured?: boolean | null
+          id?: string
+          photo_url?: string | null
+          rating?: number | null
+        }
+        Update: {
+          approved?: boolean | null
+          author_company?: string | null
+          author_name?: string
+          author_title?: string | null
+          content?: string
+          created_at?: string | null
+          featured?: boolean | null
+          id?: string
+          photo_url?: string | null
+          rating?: number | null
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      visitors: {
+        Row: {
+          check_in_time: string | null
+          checked_in: boolean | null
+          company: string | null
+          country: string | null
+          email: string
+          full_name: string
+          id: string
+          interests: string[] | null
+          job_title: string | null
+          phone: string | null
+          registration_date: string | null
+        }
+        Insert: {
+          check_in_time?: string | null
+          checked_in?: boolean | null
+          company?: string | null
+          country?: string | null
+          email: string
+          full_name: string
+          id?: string
+          interests?: string[] | null
+          job_title?: string | null
+          phone?: string | null
+          registration_date?: string | null
+        }
+        Update: {
+          check_in_time?: string | null
+          checked_in?: boolean | null
+          company?: string | null
+          country?: string | null
+          email?: string
+          full_name?: string
+          id?: string
+          interests?: string[] | null
+          job_title?: string | null
+          phone?: string | null
+          registration_date?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +640,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
