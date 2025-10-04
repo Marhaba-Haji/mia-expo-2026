@@ -13,7 +13,11 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-md bg-hero-gradient shadow-glow animate-float" aria-hidden />
+          <img 
+            src="/expo_logo.png" 
+            alt="MIA Expo Logo" 
+            className="h-8 w-auto"
+          />
           <span className="font-brand text-lg leading-none">{t('brand')}</span>
         </Link>
 

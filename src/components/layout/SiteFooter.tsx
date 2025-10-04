@@ -5,9 +5,16 @@ export default function SiteFooter() {
     <footer className="border-t mt-16">
       <div className="container py-10 grid gap-8 md:grid-cols-4">
         <div>
-          <h4 className="font-brand text-lg mb-3">MIA Business Expo</h4>
+          <div className="flex items-center gap-2 mb-3">
+            <img 
+              src="/expo_logo.png" 
+              alt="MIA Expo Logo" 
+              className="h-6 w-auto"
+            />
+            <h4 className="font-brand text-lg">MIA Business Expo</h4>
+          </div>
           <p className="text-muted-foreground">
-            A prestigious platform celebrating commerce and culture across India’s minority communities.
+            A prestigious platform celebrating commerce and culture across India's minority communities.
           </p>
         </div>
         <div>
