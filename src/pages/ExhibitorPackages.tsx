@@ -96,6 +96,7 @@ export default function ExhibitorPackages() {
     website: "",
     description: "",
     package_type: "",
+    industry: "",
   });
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
@@ -367,6 +368,24 @@ export default function ExhibitorPackages() {
                         onChange={(e) => setFormData({ ...formData, contact_person: e.target.value })}
                         required
                       />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="industry">Industry Focus *</Label>
+                      <Select
+                        value={formData.industry}
+                        onValueChange={(value) => setFormData({ ...formData, industry: value })}
+                        required
+                      >
+                        <SelectTrigger id="industry">
+                          <SelectValue placeholder="Select your industry" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="hospitality">Hospitality</SelectItem>
+                          <SelectItem value="infrastructure-real-estate">Infrastructure & Real Estate</SelectItem>
+                          <SelectItem value="manufacturing-machinery">Manufacturing & Machinery</SelectItem>
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     <div className="space-y-2">

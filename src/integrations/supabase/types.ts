@@ -59,6 +59,7 @@ export type Database = {
           description: string | null
           email: string | null
           id: string
+          industry: string | null
           logo_url: string | null
           package_type: string | null
           phone: string | null
@@ -74,6 +75,7 @@ export type Database = {
           description?: string | null
           email?: string | null
           id?: string
+          industry?: string | null
           logo_url?: string | null
           package_type?: string | null
           phone?: string | null
@@ -89,6 +91,7 @@ export type Database = {
           description?: string | null
           email?: string | null
           id?: string
+          industry?: string | null
           logo_url?: string | null
           package_type?: string | null
           phone?: string | null
