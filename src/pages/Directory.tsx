@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Skeleton } from "@/components/ui/skeleton";
 import { 
   Search, 
   Filter, 
@@ -37,253 +39,130 @@ import {
   Bookmark
 } from "lucide-react";
 import SEO from "@/components/seo/SEO";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
-// Sample exhibitor data - in production, this would come from an API
-const exhibitorData = [
-  {
-    id: "1",
-    name: "Khan Infrastructure Ltd.",
-    description: "Leading construction and infrastructure development company specializing in smart cities and sustainable building solutions.",
-    sector: "Infrastructure & Real Estate",
-    subSector: "Construction",
-    location: { country: "India", state: "Maharashtra", city: "Mumbai" },
-    contact: {
-      email: "contact@khaninfra.com",
-      phone: "+91-22-1234-5678",
-      website: "https://khaninfra.com",
-      socialMedia: { linkedin: "khan-infrastructure", twitter: "khaninfra" }
-    },
-    booth: { number: "A-101", size: "18 sqm", package: "Premium", location: { x: 100, y: 200 } },
-    products: ["Smart Buildings", "Green Construction", "Infrastructure Planning"],
-    services: ["Project Management", "Consulting", "Maintenance"],
-    keyPersonnel: [{ name: "Ahmed Khan", designation: "CEO", email: "ahmed@khaninfra.com" }],
-    certifications: ["ISO 9001", "Green Building Certified"],
-    exportMarkets: ["UAE", "Saudi Arabia", "Bangladesh"],
-    community: "Muslim",
-    establishedYear: 1995,
-    employeeCount: "500+",
-    logo: "/api/placeholder/80/80",
-    images: ["/api/placeholder/400/300", "/api/placeholder/400/300"],
-    isFeatured: true,
-    isNew: false
-  },
-  {
-    id: "2",
-    name: "Singh Manufacturing Co.",
-    description: "Advanced manufacturing solutions for automotive and industrial sectors with cutting-edge automation technology.",
-    sector: "Manufacturing & Machinery",
-    subSector: "Industrial Manufacturing",
-    location: { country: "India", state: "Punjab", city: "Ludhiana" },
-    contact: {
-      email: "info@singhmfg.com",
-      phone: "+91-161-234-5678",
-      website: "https://singhmfg.com",
-      socialMedia: { linkedin: "singh-manufacturing" }
-    },
-    booth: { number: "B-205", size: "9 sqm", package: "Standard", location: { x: 300, y: 150 } },
-    products: ["CNC Machines", "Automation Systems", "Industrial Tools"],
-    services: ["Machine Installation", "Training", "Maintenance"],
-    keyPersonnel: [{ name: "Priya Singh", designation: "Director", email: "priya@singhmfg.com" }],
-    certifications: ["ISO 14001", "CE Marking"],
-    exportMarkets: ["Germany", "USA", "Japan"],
-    community: "Sikh",
-    establishedYear: 1988,
-    employeeCount: "200+",
-    logo: "/api/placeholder/80/80",
-    images: ["/api/placeholder/400/300"],
-    isFeatured: false,
-    isNew: true
-  },
-  {
-    id: "3",
-    name: "Mathew Hospitality Group",
-    description: "Premium hospitality services with luxury hotels, restaurants, and event management across India.",
-    sector: "Hospitality",
-    subSector: "Hotels & Restaurants",
-    location: { country: "India", state: "Kerala", city: "Kochi" },
-    contact: {
-      email: "contact@mathewhospitality.com",
-      phone: "+91-484-123-4567",
-      website: "https://mathewhospitality.com",
-      socialMedia: { linkedin: "mathew-hospitality", facebook: "mathewhospitality" }
-    },
-    booth: { number: "C-310", size: "6 sqm", package: "Startup", location: { x: 200, y: 300 } },
-    products: ["Luxury Hotels", "Fine Dining", "Event Venues"],
-    services: ["Catering", "Event Management", "Tourism"],
-    keyPersonnel: [{ name: "John Mathew", designation: "Managing Director", email: "john@mathewhospitality.com" }],
-    certifications: ["HACCP", "ISO 22000"],
-    exportMarkets: ["Maldives", "Sri Lanka"],
-    community: "Christian",
-    establishedYear: 2005,
-    employeeCount: "150+",
-    logo: "/api/placeholder/80/80",
-    images: ["/api/placeholder/400/300"],
-    isFeatured: false,
-    isNew: false
-  },
-  {
-    id: "4",
-    name: "Zaveri Organics",
-    description: "Organic farming and sustainable agriculture solutions with premium organic products for health-conscious consumers.",
-    sector: "Agriculture",
-    subSector: "Organic Farming",
-    location: { country: "India", state: "Gujarat", city: "Ahmedabad" },
-    contact: {
-      email: "info@zaveriorganics.com",
-      phone: "+91-79-234-5678",
-      website: "https://zaveriorganics.com",
-      socialMedia: { linkedin: "zaveri-organics" }
-    },
-    booth: { number: "D-415", size: "9 sqm", package: "Standard", location: { x: 400, y: 250 } },
-    products: ["Organic Spices", "Organic Grains", "Organic Vegetables"],
-    services: ["Farm Consulting", "Organic Certification", "Export Services"],
-    keyPersonnel: [{ name: "Zara Irani", designation: "Founder", email: "zara@zaveriorganics.com" }],
-    certifications: ["USDA Organic", "NPOP Certified"],
-    exportMarkets: ["USA", "UK", "Australia"],
-    community: "Parsi",
-    establishedYear: 2010,
-    employeeCount: "75+",
-    logo: "/api/placeholder/80/80",
-    images: ["/api/placeholder/400/300"],
-    isFeatured: true,
-    isNew: false
-  },
-  {
-    id: "5",
-    name: "Noor Foods",
-    description: "Premium halal food products and beverages with international quality standards and innovative packaging solutions.",
-    sector: "Food & Beverage",
-    subSector: "Food Processing",
-    location: { country: "India", state: "Delhi", city: "New Delhi" },
-    contact: {
-      email: "sales@noorfoods.com",
-      phone: "+91-11-2345-6789",
-      website: "https://noorfoods.com",
-      socialMedia: { linkedin: "noor-foods", twitter: "noorfoods" }
-    },
-    booth: { number: "E-520", size: "6 sqm", package: "Startup", location: { x: 500, y: 200 } },
-    products: ["Halal Snacks", "Beverages", "Ready-to-Eat Meals"],
-    services: ["Private Labeling", "Export Services", "Quality Testing"],
-    keyPersonnel: [{ name: "Fatima Noor", designation: "CEO", email: "fatima@noorfoods.com" }],
-    certifications: ["Halal Certified", "FSSAI Approved"],
-    exportMarkets: ["Malaysia", "Indonesia", "UAE"],
-    community: "Muslim",
-    establishedYear: 2018,
-    employeeCount: "50+",
-    logo: "/api/placeholder/80/80",
-    images: ["/api/placeholder/400/300"],
-    isFeatured: false,
-    isNew: true
-  },
-  {
-    id: "6",
-    name: "St. Mary Healthcare",
-    description: "Advanced medical devices and healthcare solutions with focus on telemedicine and patient care technology.",
-    sector: "Healthcare",
-    subSector: "Medical Devices",
-    location: { country: "India", state: "Tamil Nadu", city: "Chennai" },
-    contact: {
-      email: "info@stmaryhealthcare.com",
-      phone: "+91-44-1234-5678",
-      website: "https://stmaryhealthcare.com",
-      socialMedia: { linkedin: "st-mary-healthcare" }
-    },
-    booth: { number: "F-625", size: "18 sqm", package: "Premium", location: { x: 600, y: 100 } },
-    products: ["Medical Devices", "Telemedicine Solutions", "Health Monitoring"],
-    services: ["Medical Training", "Equipment Maintenance", "Consulting"],
-    keyPersonnel: [{ name: "Dr. Mary Thomas", designation: "Medical Director", email: "mary@stmaryhealthcare.com" }],
-    certifications: ["ISO 13485", "CE Medical Device"],
-    exportMarkets: ["South Africa", "Kenya", "Nigeria"],
-    community: "Christian",
-    establishedYear: 2000,
-    employeeCount: "300+",
-    logo: "/api/placeholder/80/80",
-    images: ["/api/placeholder/400/300"],
-    isFeatured: true,
-    isNew: false
-  }
-];
-
-const sectors = [
-  "All Sectors",
-  "Infrastructure & Real Estate",
-  "Manufacturing & Machinery", 
-  "Hospitality",
-  "Food & Beverage",
-  "Healthcare",
-  "Agriculture",
-  "Technology"
-];
-
-const communities = [
-  "All Communities",
-  "Muslim",
-  "Sikh", 
-  "Christian",
-  "Parsi",
-  "Jain"
-];
-
-const packages = [
-  "All Packages",
-  "Startup",
-  "Standard",
-  "Premium"
-];
+interface Exhibitor {
+  id: string;
+  company_name: string;
+  description?: string;
+  industry?: string;
+  city?: string;
+  state?: string;
+  email?: string;
+  phone?: string;
+  website?: string;
+  logo_url?: string;
+  package_type?: string;
+  booth_number?: string;
+  status?: string;
+  founded_year?: number;
+}
 
 export default function Directory() {
+  const [exhibitorData, setExhibitorData] = useState<Exhibitor[]>([]);
+  const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedSector, setSelectedSector] = useState("All Sectors");
-  const [selectedCommunity, setSelectedCommunity] = useState("All Communities");
   const [selectedPackage, setSelectedPackage] = useState("All Packages");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("name");
-  const [selectedExhibitor, setSelectedExhibitor] = useState<any>(null);
   const [showFilters, setShowFilters] = useState(false);
+
+  useEffect(() => {
+    fetchExhibitors();
+  }, []);
+
+  const fetchExhibitors = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('exhibitors')
+        .select('*')
+        .eq('status', 'approved')
+        .order('company_name');
+
+      if (error) throw error;
+      setExhibitorData(data || []);
+    } catch (error: any) {
+      console.error('Error fetching exhibitors:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to load exhibitors',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Extract unique sectors and packages from data
+  const sectors = useMemo(() => {
+    const uniqueSectors = new Set(exhibitorData.map(e => e.industry).filter(Boolean));
+    return ["All Sectors", ...Array.from(uniqueSectors)];
+  }, [exhibitorData]);
+
+  const packages = useMemo(() => {
+    const uniquePackages = new Set(exhibitorData.map(e => e.package_type).filter(Boolean));
+    return ["All Packages", ...Array.from(uniquePackages)];
+  }, [exhibitorData]);
 
   const filteredExhibitors = useMemo(() => {
     let filtered = exhibitorData.filter(exhibitor => {
-      const matchesSearch = exhibitor.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           exhibitor.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                           exhibitor.products.some(p => p.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesSearch = exhibitor.company_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           (exhibitor.description || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+                           (exhibitor.industry || '').toLowerCase().includes(searchQuery.toLowerCase());
       
-      const matchesSector = selectedSector === "All Sectors" || exhibitor.sector === selectedSector;
-      const matchesCommunity = selectedCommunity === "All Communities" || exhibitor.community === selectedCommunity;
-      const matchesPackage = selectedPackage === "All Packages" || exhibitor.booth.package === selectedPackage;
+      const matchesSector = selectedSector === "All Sectors" || exhibitor.industry === selectedSector;
+      const matchesPackage = selectedPackage === "All Packages" || exhibitor.package_type === selectedPackage;
       
-      return matchesSearch && matchesSector && matchesCommunity && matchesPackage;
+      return matchesSearch && matchesSector && matchesPackage;
     });
 
     // Sort the results
     filtered.sort((a, b) => {
       switch (sortBy) {
         case "name":
-          return a.name.localeCompare(b.name);
+          return a.company_name.localeCompare(b.company_name);
         case "sector":
-          return a.sector.localeCompare(b.sector);
+          return (a.industry || '').localeCompare(b.industry || '');
         case "location":
-          return a.location.city.localeCompare(b.location.city);
+          return (a.city || '').localeCompare(b.city || '');
         case "package":
-          const packageOrder = { "Premium": 3, "Standard": 2, "Startup": 1 };
-          return packageOrder[b.booth.package] - packageOrder[a.booth.package];
+          const packageOrder: Record<string, number> = { "Premium": 3, "Standard": 2, "Startup": 1 };
+          return (packageOrder[b.package_type || ''] || 0) - (packageOrder[a.package_type || ''] || 0);
         default:
           return 0;
       }
     });
 
     return filtered;
-  }, [searchQuery, selectedSector, selectedCommunity, selectedPackage, sortBy]);
-
-  const featuredExhibitors = exhibitorData.filter(e => e.isFeatured);
-  const newExhibitors = exhibitorData.filter(e => e.isNew);
+  }, [searchQuery, selectedSector, selectedPackage, sortBy, exhibitorData]);
 
   const sectorStats = useMemo(() => {
     const stats: { [key: string]: number } = {};
     exhibitorData.forEach(exhibitor => {
-      stats[exhibitor.sector] = (stats[exhibitor.sector] || 0) + 1;
+      if (exhibitor.industry) {
+        stats[exhibitor.industry] = (stats[exhibitor.industry] || 0) + 1;
+      }
     });
     return stats;
-  }, []);
+  }, [exhibitorData]);
+
+  if (loading) {
+    return (
+      <main className="container py-8">
+        <div className="space-y-4">
+          <Skeleton className="h-12 w-full" />
+          <Skeleton className="h-64 w-full" />
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3, 4, 5, 6].map(i => (
+              <Skeleton key={i} className="h-48 w-full" />
+            ))}
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main>
@@ -349,71 +228,75 @@ export default function Directory() {
       </section>
 
       {/* Featured Exhibitors */}
-      <section className="py-16 md:py-20">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-brand text-3xl md:text-4xl mb-6">Featured Exhibitors</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Discover our premium exhibitors showcasing cutting-edge innovations and solutions.
-            </p>
-          </motion.div>
+      {exhibitorData.length > 0 && (
+        <section className="py-16 md:py-20">
+          <div className="container">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <h2 className="font-brand text-3xl md:text-4xl mb-6">Our Exhibitors</h2>
+              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+                Discover our exhibitors showcasing cutting-edge innovations and solutions.
+              </p>
+            </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {featuredExhibitors.map((exhibitor, index) => (
-              <motion.div
-                key={exhibitor.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="h-full hover:shadow-glow transition-shadow group">
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                          <Building2 className="h-6 w-6 text-primary" />
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {exhibitorData.slice(0, 6).map((exhibitor, index) => (
+                <motion.div
+                  key={exhibitor.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                >
+                  <Card className="h-full hover:shadow-glow transition-shadow group">
+                    <CardContent className="p-6">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-center gap-3">
+                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <Building2 className="h-6 w-6 text-primary" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-lg">{exhibitor.company_name}</h3>
+                            <p className="text-sm text-muted-foreground">{exhibitor.industry || 'N/A'}</p>
+                          </div>
                         </div>
-                        <div>
-                          <h3 className="font-semibold text-lg">{exhibitor.name}</h3>
-                          <p className="text-sm text-muted-foreground">{exhibitor.sector}</p>
-                        </div>
+                        {exhibitor.package_type === 'Premium' && (
+                          <Badge variant="secondary" className="bg-accent/10 text-accent">
+                            <Star className="h-3 w-3 mr-1" />
+                            Premium
+                          </Badge>
+                        )}
                       </div>
-                      <Badge variant="secondary" className="bg-accent/10 text-accent">
-                        <Star className="h-3 w-3 mr-1" />
-                        Featured
-                      </Badge>
-                    </div>
-                    
-                    <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
-                      {exhibitor.description}
-                    </p>
-                    
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                      <MapPin className="h-4 w-4" />
-                      <span>{exhibitor.location.city}, {exhibitor.location.state}</span>
-                    </div>
-                     
-                     <div className="flex items-center justify-between">
-                       <Badge variant="outline">{exhibitor.booth.package}</Badge>
-                       <Button variant="outline" size="sm" asChild>
-                         <a href={`/exhibitor/${exhibitor.id}`}>
-                           <Eye className="h-4 w-4 mr-2" />
-                           View Details
-                         </a>
-                       </Button>
-                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                      
+                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                        {exhibitor.description || 'No description available'}
+                      </p>
+                      
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
+                        <MapPin className="h-4 w-4" />
+                        <span>{exhibitor.city && exhibitor.state ? `${exhibitor.city}, ${exhibitor.state}` : 'Location not specified'}</span>
+                      </div>
+                       
+                       <div className="flex items-center justify-between">
+                         <Badge variant="outline">{exhibitor.package_type || 'Standard'}</Badge>
+                         <Button variant="outline" size="sm" asChild>
+                           <Link to={`/exhibitor/${exhibitor.id}`}>
+                             <Eye className="h-4 w-4 mr-2" />
+                             View Details
+                           </Link>
+                         </Button>
+                       </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Filters and Search */}
       <section className="py-16 bg-muted/30">
@@ -444,20 +327,6 @@ export default function Directory() {
                       <SelectContent>
                         {sectors.map(sector => (
                           <SelectItem key={sector} value={sector}>{sector}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <label className="text-sm font-medium mb-2 block">Community</label>
-                    <Select value={selectedCommunity} onValueChange={setSelectedCommunity}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {communities.map(community => (
-                          <SelectItem key={community} value={community}>{community}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -498,7 +367,6 @@ export default function Directory() {
                     onClick={() => {
                       setSearchQuery("");
                       setSelectedSector("All Sectors");
-                      setSelectedCommunity("All Communities");
                       setSelectedPackage("All Packages");
                       setSortBy("name");
                     }}
@@ -557,50 +425,49 @@ export default function Directory() {
                           
                           <div className="flex-1 min-w-0">
                             <div className="flex items-start justify-between mb-2">
-                              <h3 className="font-semibold text-lg truncate">{exhibitor.name}</h3>
+                              <h3 className="font-semibold text-lg truncate">{exhibitor.company_name}</h3>
                               <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-                                {exhibitor.isFeatured && (
+                                {exhibitor.package_type === 'Premium' && (
                                   <Badge variant="secondary" className="bg-accent/10 text-accent">
                                     <Star className="h-3 w-3 mr-1" />
-                                    Featured
-                                  </Badge>
-                                )}
-                                {exhibitor.isNew && (
-                                  <Badge variant="secondary" className="bg-green-100 text-green-700">
-                                    New
+                                    Premium
                                   </Badge>
                                 )}
                               </div>
                             </div>
                             
                             <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
-                              {exhibitor.description}
+                              {exhibitor.description || 'No description available'}
                             </p>
                             
                             <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                               <div className="flex items-center gap-1">
                                 <Building2 className="h-4 w-4" />
-                                <span>{exhibitor.sector}</span>
+                                <span>{exhibitor.industry || 'N/A'}</span>
                               </div>
                               <div className="flex items-center gap-1">
                                 <MapPin className="h-4 w-4" />
-                                <span>{exhibitor.location.city}</span>
+                                <span>{exhibitor.city || 'N/A'}</span>
                               </div>
-                              <Badge variant="outline">{exhibitor.booth.package}</Badge>
+                              <Badge variant="outline">{exhibitor.package_type || 'Standard'}</Badge>
                             </div>
                             
                             <div className="flex items-center gap-2">
                               <Button variant="outline" size="sm" asChild>
-                                <a href={`/exhibitor/${exhibitor.id}`}>
+                                <Link to={`/exhibitor/${exhibitor.id}`}>
                                   <Eye className="h-4 w-4 mr-2" />
                                   View Details
-                                </a>
+                                </Link>
                               </Button>
                               
-                              <Button variant="outline" size="sm">
-                                <MessageCircle className="h-4 w-4 mr-2" />
-                                Contact
-                              </Button>
+                              {exhibitor.email && (
+                                <Button variant="outline" size="sm" asChild>
+                                  <a href={`mailto:${exhibitor.email}`}>
+                                    <MessageCircle className="h-4 w-4 mr-2" />
+                                    Contact
+                                  </a>
+                                </Button>
+                              )}
                             </div>
                           </div>
                         </div>

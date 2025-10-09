@@ -67,9 +67,15 @@ export default function ExhibitorDetail() {
         .select('*')
         .eq('id', id)
         .eq('status', 'approved')
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
+      
+      if (!data) {
+        setExhibitor(null);
+        return;
+      }
+      
       setExhibitor(data);
     } catch (error: any) {
       console.error('Error fetching exhibitor:', error);
