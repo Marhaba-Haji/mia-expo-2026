@@ -184,42 +184,42 @@ export default function Directory() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
             >
-              <h1 className="font-brand text-4xl md:text-6xl leading-tight mb-6">
+              <h1 className="font-brand text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 md:mb-6 px-4">
                 Exhibitor Directory
               </h1>
-              <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-3xl mx-auto px-4">
                 Discover 600+ innovative exhibitors across all sectors. Connect with businesses 
                 from Muslim, Sikh, Christian, Parsi, and Jain communities.
               </p>
               
               {/* Search Bar */}
-              <div className="relative max-w-2xl mx-auto mb-8">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+              <div className="relative max-w-2xl mx-auto mb-6 md:mb-8 px-4">
+                <Search className="absolute left-7 md:left-8 top-1/2 transform -translate-y-1/2 h-4 w-4 md:h-5 md:w-5 text-muted-foreground" />
                 <Input
-                  placeholder="Search exhibitors, products, or services..."
+                  placeholder="Search exhibitors..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-12 pr-4 py-3 text-lg"
+                  className="pl-10 md:pl-12 pr-4 py-2 md:py-3 text-base md:text-lg"
                 />
               </div>
 
               {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto">
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">{exhibitorData.length}+</div>
-                  <div className="text-sm text-muted-foreground">Exhibitors</div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto px-4">
+                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
+                  <div className="text-xl md:text-2xl font-bold text-primary">{exhibitorData.length}+</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Exhibitors</div>
                 </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">{sectors.length - 1}</div>
-                  <div className="text-sm text-muted-foreground">Sectors</div>
+                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
+                  <div className="text-xl md:text-2xl font-bold text-primary">{sectors.length - 1}</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Sectors</div>
                 </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">20+</div>
-                  <div className="text-sm text-muted-foreground">Countries</div>
+                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
+                  <div className="text-xl md:text-2xl font-bold text-primary">20+</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Countries</div>
                 </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">5</div>
-                  <div className="text-sm text-muted-foreground">Communities</div>
+                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
+                  <div className="text-xl md:text-2xl font-bold text-primary">5</div>
+                  <div className="text-xs md:text-sm text-muted-foreground">Communities</div>
                 </div>
               </div>
             </motion.div>
@@ -229,91 +229,93 @@ export default function Directory() {
 
       {/* Featured Exhibitors */}
       {exhibitorData.length > 0 && (
-        <section className="py-16 md:py-20">
-          <div className="container">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center mb-12"
+        <section className="py-12 md:py-16 lg:py-20">
+          <div className="container px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+              className="text-center mb-8 md:mb-12"
             >
-              <h2 className="font-brand text-3xl md:text-4xl mb-6">Our Exhibitors</h2>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+              <h2 className="font-brand text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6">Our Exhibitors</h2>
+              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
                 Discover our exhibitors showcasing cutting-edge innovations and solutions.
-              </p>
-            </motion.div>
+            </p>
+          </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {exhibitorData.slice(0, 6).map((exhibitor, index) => (
-                <motion.div
-                  key={exhibitor.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                >
-                  <Card className="h-full hover:shadow-glow transition-shadow group">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="flex items-center gap-3">
-                          <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                            <Building2 className="h-6 w-6 text-primary" />
+              <motion.div
+                key={exhibitor.id}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <Card className="h-full hover:shadow-glow transition-shadow group">
+                    <CardContent className="p-4 md:p-6">
+                      <div className="flex flex-col gap-3 mb-3 md:mb-4">
+                        <div className="flex items-start gap-3">
+                          <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <Building2 className="h-5 w-5 md:h-6 md:w-6 text-primary" />
                           </div>
-                          <div>
-                            <h3 className="font-semibold text-lg">{exhibitor.company_name}</h3>
-                            <p className="text-sm text-muted-foreground">{exhibitor.industry || 'N/A'}</p>
-                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h3 className="font-semibold text-base md:text-lg line-clamp-1">{exhibitor.company_name}</h3>
+                            <p className="text-xs md:text-sm text-muted-foreground truncate">{exhibitor.industry || 'N/A'}</p>
+                        </div>
                         </div>
                         {exhibitor.package_type === 'Premium' && (
-                          <Badge variant="secondary" className="bg-accent/10 text-accent">
+                          <Badge variant="secondary" className="bg-accent/10 text-accent w-fit text-xs">
                             <Star className="h-3 w-3 mr-1" />
                             Premium
                           </Badge>
                         )}
-                      </div>
-                      
-                      <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
+                    </div>
+                    
+                      <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
                         {exhibitor.description || 'No description available'}
                       </p>
                       
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground mb-4">
-                        <MapPin className="h-4 w-4" />
-                        <span>{exhibitor.city && exhibitor.state ? `${exhibitor.city}, ${exhibitor.state}` : 'Location not specified'}</span>
-                      </div>
-                       
-                       <div className="flex items-center justify-between">
-                         <Badge variant="outline">{exhibitor.package_type || 'Standard'}</Badge>
-                         <Button variant="outline" size="sm" asChild>
+                      <div className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
+                        <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                        <span className="truncate">{exhibitor.city && exhibitor.state ? `${exhibitor.city}, ${exhibitor.state}` : 'Location not specified'}</span>
+                    </div>
+                     
+                       <div className="flex items-center justify-between gap-2">
+                         <Badge variant="outline" className="text-xs">{exhibitor.package_type || 'Standard'}</Badge>
+                         <Button variant="outline" size="sm" asChild className="text-xs md:text-sm">
                            <Link to={`/exhibitor/${exhibitor.id}`}>
-                             <Eye className="h-4 w-4 mr-2" />
-                             View Details
+                             <Eye className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                             <span className="hidden sm:inline">View Details</span>
+                             <span className="sm:hidden">View</span>
                            </Link>
-                         </Button>
-                       </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+                       </Button>
+                     </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
-        </section>
+        </div>
+      </section>
       )}
 
       {/* Filters and Search */}
-      <section className="py-16 bg-muted/30">
-        <div className="container">
-          <div className="flex flex-col lg:flex-row gap-6">
+      <section className="py-8 md:py-12 lg:py-16 bg-muted/30">
+        <div className="container px-4">
+          <div className="flex flex-col lg:flex-row gap-4 md:gap-6">
             {/* Filters Sidebar */}
             <div className="lg:w-1/4">
-              <Card className="p-6">
+              <Card className="p-4 md:p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <h3 className="font-semibold">Filters</h3>
+                  <h3 className="font-semibold text-base md:text-lg">Filters</h3>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setShowFilters(!showFilters)}
                     className="lg:hidden"
                   >
-                    <Filter className="h-4 w-4" />
+                    <Filter className="h-4 w-4 mr-2" />
+                    <span>{showFilters ? 'Hide' : 'Show'}</span>
                   </Button>
                 </div>
                 
@@ -381,11 +383,11 @@ export default function Directory() {
             
             {/* Main Content */}
             <div className="lg:w-3/4">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-4 md:mb-6">
                 <div>
-                  <h2 className="font-semibold text-lg">All Exhibitors</h2>
-                  <p className="text-sm text-muted-foreground">
-                    {filteredExhibitors.length} exhibitors found
+                  <h2 className="font-semibold text-base md:text-lg">All Exhibitors</h2>
+                  <p className="text-xs md:text-sm text-muted-foreground">
+                    {filteredExhibitors.length} exhibitor{filteredExhibitors.length !== 1 ? 's' : ''} found
                   </p>
                 </div>
                 
@@ -394,21 +396,25 @@ export default function Directory() {
                     variant={viewMode === "grid" ? "default" : "outline"}
                     size="sm"
                     onClick={() => setViewMode("grid")}
+                    className="h-8 w-8 md:h-9 md:w-9 p-0"
+                    aria-label="Grid view"
                   >
-                    <Grid3X3 className="h-4 w-4" />
+                    <Grid3X3 className="h-3.5 w-3.5 md:h-4 md:w-4" />
                   </Button>
                   <Button
                     variant={viewMode === "list" ? "default" : "outline"}
                     size="sm"
                     onClick={() => setViewMode("list")}
+                    className="h-8 w-8 md:h-9 md:w-9 p-0"
+                    aria-label="List view"
                   >
-                    <List className="h-4 w-4" />
+                    <List className="h-3.5 w-3.5 md:h-4 md:w-4" />
                   </Button>
                 </div>
               </div>
               
               {/* Exhibitor Grid/List */}
-              <div className={`grid gap-4 ${viewMode === "grid" ? "md:grid-cols-2" : "grid-cols-1"}`}>
+              <div className={`grid gap-3 md:gap-4 ${viewMode === "grid" ? "sm:grid-cols-2" : "grid-cols-1"}`}>
                 {filteredExhibitors.map((exhibitor, index) => (
                   <motion.div
                     key={exhibitor.id}
@@ -417,53 +423,52 @@ export default function Directory() {
                     transition={{ duration: 0.6, delay: index * 0.05 }}
                   >
                     <Card className="h-full hover:shadow-glow transition-shadow group">
-                      <CardContent className="p-6">
-                        <div className="flex items-start gap-4">
-                          <div className="w-16 h-16 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <Building2 className="h-8 w-8 text-primary" />
+                      <CardContent className="p-4 md:p-6">
+                        <div className="flex items-start gap-3 md:gap-4">
+                          <div className="w-12 h-12 md:w-16 md:h-16 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                            <Building2 className="h-6 w-6 md:h-8 md:w-8 text-primary" />
                           </div>
                           
                           <div className="flex-1 min-w-0">
-                            <div className="flex items-start justify-between mb-2">
-                              <h3 className="font-semibold text-lg truncate">{exhibitor.company_name}</h3>
-                              <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-                                {exhibitor.package_type === 'Premium' && (
-                                  <Badge variant="secondary" className="bg-accent/10 text-accent">
-                                    <Star className="h-3 w-3 mr-1" />
-                                    Premium
-                                  </Badge>
-                                )}
-                              </div>
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2 gap-2">
+                              <h3 className="font-semibold text-base md:text-lg line-clamp-2 sm:line-clamp-1">{exhibitor.company_name}</h3>
+                              {exhibitor.package_type === 'Premium' && (
+                                <Badge variant="secondary" className="bg-accent/10 text-accent w-fit text-xs flex-shrink-0">
+                                  <Star className="h-3 w-3 mr-1" />
+                                  Premium
+                                </Badge>
+                              )}
                             </div>
                             
-                            <p className="text-muted-foreground text-sm mb-3 line-clamp-2">
+                            <p className="text-muted-foreground text-xs md:text-sm mb-2 md:mb-3 line-clamp-2">
                               {exhibitor.description || 'No description available'}
                             </p>
                             
-                            <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
+                            <div className="flex flex-wrap items-center gap-2 md:gap-3 text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
                               <div className="flex items-center gap-1">
-                                <Building2 className="h-4 w-4" />
-                                <span>{exhibitor.industry || 'N/A'}</span>
+                                <Building2 className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                                <span className="truncate">{exhibitor.industry || 'N/A'}</span>
                               </div>
                               <div className="flex items-center gap-1">
-                                <MapPin className="h-4 w-4" />
-                                <span>{exhibitor.city || 'N/A'}</span>
+                                <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                                <span className="truncate">{exhibitor.city || 'N/A'}</span>
                               </div>
-                              <Badge variant="outline">{exhibitor.package_type || 'Standard'}</Badge>
+                              <Badge variant="outline" className="text-xs">{exhibitor.package_type || 'Standard'}</Badge>
                             </div>
                             
-                            <div className="flex items-center gap-2">
-                              <Button variant="outline" size="sm" asChild>
+                            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+                              <Button variant="outline" size="sm" asChild className="text-xs md:text-sm flex-1 sm:flex-none">
                                 <Link to={`/exhibitor/${exhibitor.id}`}>
-                                  <Eye className="h-4 w-4 mr-2" />
-                                  View Details
+                                  <Eye className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                                  <span className="hidden sm:inline">View Details</span>
+                                  <span className="sm:hidden">View</span>
                                 </Link>
                               </Button>
                               
                               {exhibitor.email && (
-                                <Button variant="outline" size="sm" asChild>
+                                <Button variant="outline" size="sm" asChild className="text-xs md:text-sm flex-1 sm:flex-none">
                                   <a href={`mailto:${exhibitor.email}`}>
-                                    <MessageCircle className="h-4 w-4 mr-2" />
+                                    <MessageCircle className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
                                     Contact
                                   </a>
                                 </Button>
@@ -492,21 +497,21 @@ export default function Directory() {
       </section>
 
       {/* Statistics Section */}
-      <section className="py-16 md:py-20">
-        <div className="container">
+      <section className="py-12 md:py-16 lg:py-20">
+        <div className="container px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-8 md:mb-12"
           >
-            <h2 className="font-brand text-3xl md:text-4xl mb-6">Exhibitor Statistics</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+            <h2 className="font-brand text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6">Exhibitor Statistics</h2>
+            <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
               Explore the diversity and reach of our exhibitor community across sectors and regions.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4 lg:gap-6">
             {Object.entries(sectorStats).map(([sector, count], index) => (
               <motion.div
                 key={sector}
@@ -514,10 +519,10 @@ export default function Directory() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="p-6 text-center hover:shadow-glow transition-shadow">
+                <Card className="p-4 md:p-6 text-center hover:shadow-glow transition-shadow">
                   <CardContent className="p-0">
-                    <div className="text-3xl font-bold text-primary mb-2">{count}</div>
-                    <div className="text-sm text-muted-foreground">{sector}</div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary mb-1 md:mb-2">{count}</div>
+                    <div className="text-xs md:text-sm text-muted-foreground line-clamp-2">{sector}</div>
                   </CardContent>
                 </Card>
               </motion.div>
