@@ -627,6 +627,10 @@ export type Database = {
         Args: { sql_query: string }
         Returns: Json
       }
+      execute_sql_write: {
+        Args: { sql_query: string }
+        Returns: Json
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
