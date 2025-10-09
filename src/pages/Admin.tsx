@@ -17,6 +17,7 @@ import { TestimonialsManager } from '@/components/admin/TestimonialsManager';
 import { ProgrammeManager } from '@/components/admin/ProgrammeManager';
 import { FloorPlanManager } from '@/components/admin/FloorPlanManager';
 import { MediaBitesManager } from '@/components/admin/MediaBitesManager';
+import { SQLEditor } from '@/components/admin/SQLEditor';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -105,7 +106,7 @@ export default function Admin() {
 
         <div className="container mx-auto px-4 py-8">
           <Tabs defaultValue="exhibitors" className="space-y-4">
-            <TabsList className="grid grid-cols-5 lg:grid-cols-10 gap-2">
+            <TabsList className="grid grid-cols-5 lg:grid-cols-11 gap-2">
               <TabsTrigger value="exhibitors">Exhibitors</TabsTrigger>
               <TabsTrigger value="sponsors">Sponsors</TabsTrigger>
               <TabsTrigger value="donors">Donors</TabsTrigger>
@@ -116,6 +117,7 @@ export default function Admin() {
               <TabsTrigger value="programme">Programme</TabsTrigger>
               <TabsTrigger value="floorplan">Floor Plan</TabsTrigger>
               <TabsTrigger value="media">Media Bites</TabsTrigger>
+              <TabsTrigger value="sql">SQL Editor</TabsTrigger>
             </TabsList>
 
             <TabsContent value="exhibitors">
@@ -156,6 +158,10 @@ export default function Admin() {
 
             <TabsContent value="media">
               <MediaBitesManager />
+            </TabsContent>
+
+            <TabsContent value="sql">
+              <SQLEditor />
             </TabsContent>
           </Tabs>
         </div>

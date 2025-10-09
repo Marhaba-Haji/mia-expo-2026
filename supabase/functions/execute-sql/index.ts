@@ -40,7 +40,7 @@ serve(async (req) => {
       .select('role')
       .eq('user_id', user.id)
       .eq('role', 'admin')
-      .single();
+      .maybeSingle();
 
     if (roleError || !roleData) {
       throw new Error('Access denied: Admin only');
@@ -52,15 +52,43 @@ serve(async (req) => {
       throw new Error('Invalid query');
     }
 
-    // Execute the SQL query
-    const { data, error } = await supabaseClient.rpc('execute_sql', { sql_query: query });
+    console.log('Executing SQL query:', query.substring(0, 100) + '...');
 
-    if (error) {
-      throw error;
+    // Determine if query is a SELECT or a data modification query
+    const trimmedQuery = query.trim().toUpperCase();
+    const isSelectQuery = trimmedQuery.startsWith('SELECT') || 
+                          trimmedQuery.startsWith('WITH') ||
+                          trimmedQuery.startsWith('SHOW') ||
+                          trimmedQuery.startsWith('EXPLAIN');
+
+    let result;
+    
+    if (isSelectQuery) {
+      // For SELECT queries, return the data
+      const { data, error } = await supabaseClient.rpc('execute_sql', { sql_query: query });
+      
+      if (error) {
+        console.error('Query error:', error);
+        throw new Error(error.message || 'Query execution failed');
+      }
+      
+      result = data;
+    } else {
+      // For INSERT, UPDATE, DELETE, CREATE, ALTER, DROP, etc.
+      const { data, error } = await supabaseClient.rpc('execute_sql_write', { sql_query: query });
+      
+      if (error) {
+        console.error('Query error:', error);
+        throw new Error(error.message || 'Query execution failed');
+      }
+      
+      result = { success: true, message: 'Query executed successfully', data };
     }
 
+    console.log('Query executed successfully');
+
     return new Response(
-      JSON.stringify({ data, error: null }),
+      JSON.stringify({ data: result, error: null }),
       { 
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
         status: 200 
