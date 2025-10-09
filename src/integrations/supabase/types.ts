@@ -50,54 +50,170 @@ export type Database = {
         }
         Relationships: []
       }
+      exhibitor_enquiries: {
+        Row: {
+          created_at: string
+          exhibitor_id: string
+          id: string
+          interested_in: string | null
+          message: string
+          notes: string | null
+          status: string | null
+          visitor_company: string | null
+          visitor_email: string
+          visitor_name: string
+          visitor_phone: string | null
+        }
+        Insert: {
+          created_at?: string
+          exhibitor_id: string
+          id?: string
+          interested_in?: string | null
+          message: string
+          notes?: string | null
+          status?: string | null
+          visitor_company?: string | null
+          visitor_email: string
+          visitor_name: string
+          visitor_phone?: string | null
+        }
+        Update: {
+          created_at?: string
+          exhibitor_id?: string
+          id?: string
+          interested_in?: string | null
+          message?: string
+          notes?: string | null
+          status?: string | null
+          visitor_company?: string | null
+          visitor_email?: string
+          visitor_name?: string
+          visitor_phone?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exhibitor_enquiries_exhibitor_id_fkey"
+            columns: ["exhibitor_id"]
+            isOneToOne: false
+            referencedRelation: "exhibitors"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       exhibitors: {
         Row: {
+          address: string | null
+          awards: string[] | null
           booth_number: string | null
+          certifications: string[] | null
+          city: string | null
           company_name: string
           contact_person: string | null
+          country: string | null
           created_at: string | null
           description: string | null
           email: string | null
+          facebook_url: string | null
+          founded_year: number | null
+          gallery_images: string[] | null
           id: string
           industry: string | null
+          instagram_url: string | null
+          linkedin_url: string | null
           logo_url: string | null
+          owner_bio: string | null
+          owner_name: string | null
+          owner_photo_url: string | null
+          owner_title: string | null
           package_type: string | null
           phone: string | null
+          products_services: string | null
+          state: string | null
           status: string | null
+          tagline: string | null
+          team_info: string | null
+          twitter_url: string | null
+          unique_selling_points: string[] | null
           updated_at: string | null
+          video_url: string | null
           website: string | null
+          youtube_url: string | null
         }
         Insert: {
+          address?: string | null
+          awards?: string[] | null
           booth_number?: string | null
+          certifications?: string[] | null
+          city?: string | null
           company_name: string
           contact_person?: string | null
+          country?: string | null
           created_at?: string | null
           description?: string | null
           email?: string | null
+          facebook_url?: string | null
+          founded_year?: number | null
+          gallery_images?: string[] | null
           id?: string
           industry?: string | null
+          instagram_url?: string | null
+          linkedin_url?: string | null
           logo_url?: string | null
+          owner_bio?: string | null
+          owner_name?: string | null
+          owner_photo_url?: string | null
+          owner_title?: string | null
           package_type?: string | null
           phone?: string | null
+          products_services?: string | null
+          state?: string | null
           status?: string | null
+          tagline?: string | null
+          team_info?: string | null
+          twitter_url?: string | null
+          unique_selling_points?: string[] | null
           updated_at?: string | null
+          video_url?: string | null
           website?: string | null
+          youtube_url?: string | null
         }
         Update: {
+          address?: string | null
+          awards?: string[] | null
           booth_number?: string | null
+          certifications?: string[] | null
+          city?: string | null
           company_name?: string
           contact_person?: string | null
+          country?: string | null
           created_at?: string | null
           description?: string | null
           email?: string | null
+          facebook_url?: string | null
+          founded_year?: number | null
+          gallery_images?: string[] | null
           id?: string
           industry?: string | null
+          instagram_url?: string | null
+          linkedin_url?: string | null
           logo_url?: string | null
+          owner_bio?: string | null
+          owner_name?: string | null
+          owner_photo_url?: string | null
+          owner_title?: string | null
           package_type?: string | null
           phone?: string | null
+          products_services?: string | null
+          state?: string | null
           status?: string | null
+          tagline?: string | null
+          team_info?: string | null
+          twitter_url?: string | null
+          unique_selling_points?: string[] | null
           updated_at?: string | null
+          video_url?: string | null
           website?: string | null
+          youtube_url?: string | null
         }
         Relationships: []
       }

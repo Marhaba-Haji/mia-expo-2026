@@ -21,6 +21,7 @@ import Contact from "./pages/Contact";
 import ExhibitorPortal from "./pages/ExhibitorPortal";
 import AdminPortal from "./pages/AdminPortal";
 import Directory from "./pages/Directory";
+import ExhibitorDetail from "./pages/ExhibitorDetail";
 import Matchmaking from "./pages/Matchmaking";
 import Auth from "./pages/Auth";
 import Admin from "./pages/Admin";
@@ -50,6 +51,7 @@ const App = () => (
             <Route path="/exhibitor-portal" element={<ExhibitorPortal />} />
             <Route path="/admin-portal" element={<AdminPortal />} />
             <Route path="/directory" element={<Directory />} />
+            <Route path="/exhibitor/:id" element={<ExhibitorDetail />} />
             <Route path="/matchmaking" element={<Matchmaking />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Admin />} />

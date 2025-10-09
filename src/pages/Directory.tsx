@@ -397,109 +397,16 @@ export default function Directory() {
                       <MapPin className="h-4 w-4" />
                       <span>{exhibitor.location.city}, {exhibitor.location.state}</span>
                     </div>
-                    
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline">{exhibitor.booth.package}</Badge>
-                      <Dialog>
-                        <DialogTrigger asChild>
-                          <Button variant="outline" size="sm">
-                            <Eye className="h-4 w-4 mr-2" />
-                            View Details
-                          </Button>
-                        </DialogTrigger>
-                        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                          <DialogHeader>
-                            <DialogTitle className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                                <Building2 className="h-6 w-6 text-primary" />
-                              </div>
-                              {exhibitor.name}
-                            </DialogTitle>
-                          </DialogHeader>
-                          <div className="space-y-6">
-                            <div>
-                              <h4 className="font-semibold mb-2">About</h4>
-                              <p className="text-muted-foreground">{exhibitor.description}</p>
-                            </div>
-                            
-                            <div className="grid md:grid-cols-2 gap-6">
-                              <div>
-                                <h4 className="font-semibold mb-2">Contact Information</h4>
-                                <div className="space-y-2 text-sm">
-                                  <div className="flex items-center gap-2">
-                                    <Mail className="h-4 w-4" />
-                                    <span>{exhibitor.contact.email}</span>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <Phone className="h-4 w-4" />
-                                    <span>{exhibitor.contact.phone}</span>
-                                  </div>
-                                  <div className="flex items-center gap-2">
-                                    <Globe className="h-4 w-4" />
-                                    <a href={exhibitor.contact.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                      Visit Website
-                                      <ExternalLink className="h-3 w-3 ml-1 inline" />
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                              
-                              <div>
-                                <h4 className="font-semibold mb-2">Booth Information</h4>
-                                <div className="space-y-2 text-sm">
-                                  <div>Booth: <span className="font-medium">{exhibitor.booth.number}</span></div>
-                                  <div>Size: <span className="font-medium">{exhibitor.booth.size}</span></div>
-                                  <div>Package: <Badge variant="outline">{exhibitor.booth.package}</Badge></div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div>
-                              <h4 className="font-semibold mb-2">Products & Services</h4>
-                              <div className="grid md:grid-cols-2 gap-4">
-                                <div>
-                                  <h5 className="text-sm font-medium mb-1">Products</h5>
-                                  <ul className="text-sm text-muted-foreground space-y-1">
-                                    {exhibitor.products.map((product, idx) => (
-                                      <li key={idx} className="flex items-center gap-2">
-                                        <CheckCircle className="h-3 w-3 text-green-600" />
-                                        {product}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                                <div>
-                                  <h5 className="text-sm font-medium mb-1">Services</h5>
-                                  <ul className="text-sm text-muted-foreground space-y-1">
-                                    {exhibitor.services.map((service, idx) => (
-                                      <li key={idx} className="flex items-center gap-2">
-                                        <CheckCircle className="h-3 w-3 text-green-600" />
-                                        {service}
-                                      </li>
-                                    ))}
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            <div className="flex gap-2">
-                              <Button variant="hero" size="sm">
-                                <MessageCircle className="h-4 w-4 mr-2" />
-                                Contact
-                              </Button>
-                              <Button variant="outline" size="sm">
-                                <Calendar className="h-4 w-4 mr-2" />
-                                Schedule Meeting
-                              </Button>
-                              <Button variant="outline" size="sm">
-                                <Bookmark className="h-4 w-4 mr-2" />
-                                Save
-                              </Button>
-                            </div>
-                          </div>
-                        </DialogContent>
-                      </Dialog>
-                    </div>
+                     
+                     <div className="flex items-center justify-between">
+                       <Badge variant="outline">{exhibitor.booth.package}</Badge>
+                       <Button variant="outline" size="sm" asChild>
+                         <a href={`/exhibitor/${exhibitor.id}`}>
+                           <Eye className="h-4 w-4 mr-2" />
+                           View Details
+                         </a>
+                       </Button>
+                     </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -683,105 +590,12 @@ export default function Directory() {
                             </div>
                             
                             <div className="flex items-center gap-2">
-                              <Dialog>
-                                <DialogTrigger asChild>
-                                  <Button variant="outline" size="sm">
-                                    <Eye className="h-4 w-4 mr-2" />
-                                    View Details
-                                  </Button>
-                                </DialogTrigger>
-                                <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-                                  <DialogHeader>
-                                    <DialogTitle className="flex items-center gap-3">
-                                      <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
-                                        <Building2 className="h-6 w-6 text-primary" />
-                                      </div>
-                                      {exhibitor.name}
-                                    </DialogTitle>
-                                  </DialogHeader>
-                                  <div className="space-y-6">
-                                    <div>
-                                      <h4 className="font-semibold mb-2">About</h4>
-                                      <p className="text-muted-foreground">{exhibitor.description}</p>
-                                    </div>
-                                    
-                                    <div className="grid md:grid-cols-2 gap-6">
-                                      <div>
-                                        <h4 className="font-semibold mb-2">Contact Information</h4>
-                                        <div className="space-y-2 text-sm">
-                                          <div className="flex items-center gap-2">
-                                            <Mail className="h-4 w-4" />
-                                            <span>{exhibitor.contact.email}</span>
-                                          </div>
-                                          <div className="flex items-center gap-2">
-                                            <Phone className="h-4 w-4" />
-                                            <span>{exhibitor.contact.phone}</span>
-                                          </div>
-                                          <div className="flex items-center gap-2">
-                                            <Globe className="h-4 w-4" />
-                                            <a href={exhibitor.contact.website} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                              Visit Website
-                                              <ExternalLink className="h-3 w-3 ml-1 inline" />
-                                            </a>
-                                          </div>
-                                        </div>
-                                      </div>
-                                      
-                                      <div>
-                                        <h4 className="font-semibold mb-2">Booth Information</h4>
-                                        <div className="space-y-2 text-sm">
-                                          <div>Booth: <span className="font-medium">{exhibitor.booth.number}</span></div>
-                                          <div>Size: <span className="font-medium">{exhibitor.booth.size}</span></div>
-                                          <div>Package: <Badge variant="outline">{exhibitor.booth.package}</Badge></div>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    
-                                    <div>
-                                      <h4 className="font-semibold mb-2">Products & Services</h4>
-                                      <div className="grid md:grid-cols-2 gap-4">
-                                        <div>
-                                          <h5 className="text-sm font-medium mb-1">Products</h5>
-                                          <ul className="text-sm text-muted-foreground space-y-1">
-                                            {exhibitor.products.map((product, idx) => (
-                                              <li key={idx} className="flex items-center gap-2">
-                                                <CheckCircle className="h-3 w-3 text-green-600" />
-                                                {product}
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        </div>
-                                        <div>
-                                          <h5 className="text-sm font-medium mb-1">Services</h5>
-                                          <ul className="text-sm text-muted-foreground space-y-1">
-                                            {exhibitor.services.map((service, idx) => (
-                                              <li key={idx} className="flex items-center gap-2">
-                                                <CheckCircle className="h-3 w-3 text-green-600" />
-                                                {service}
-                                              </li>
-                                            ))}
-                                          </ul>
-                                        </div>
-                                      </div>
-                                    </div>
-                                    
-                                    <div className="flex gap-2">
-                                      <Button variant="hero" size="sm">
-                                        <MessageCircle className="h-4 w-4 mr-2" />
-                                        Contact
-                                      </Button>
-                                      <Button variant="outline" size="sm">
-                                        <Calendar className="h-4 w-4 mr-2" />
-                                        Schedule Meeting
-                                      </Button>
-                                      <Button variant="outline" size="sm">
-                                        <Bookmark className="h-4 w-4 mr-2" />
-                                        Save
-                                      </Button>
-                                    </div>
-                                  </div>
-                                </DialogContent>
-                              </Dialog>
+                              <Button variant="outline" size="sm" asChild>
+                                <a href={`/exhibitor/${exhibitor.id}`}>
+                                  <Eye className="h-4 w-4 mr-2" />
+                                  View Details
+                                </a>
+                              </Button>
                               
                               <Button variant="outline" size="sm">
                                 <MessageCircle className="h-4 w-4 mr-2" />
