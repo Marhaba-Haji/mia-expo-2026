@@ -77,13 +77,13 @@ export default function Auth() {
   return (
     <>
       <SEO
-        title="Sign In - IICF Expo"
-        description="Sign in to access the IICF Expo admin portal"
+        title="Sign In - MIA Business Expo 2026"
+        description="Sign in to access the MIA Business Expo 2026 admin portal"
       />
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted p-4">
         <Card className="w-full max-w-md">
           <CardHeader>
-            <CardTitle>Welcome to IICF Expo</CardTitle>
+            <CardTitle>Welcome to MIA Business Expo 2026</CardTitle>
             <CardDescription>Sign in to access the admin portal</CardDescription>
           </CardHeader>
           <CardContent>
