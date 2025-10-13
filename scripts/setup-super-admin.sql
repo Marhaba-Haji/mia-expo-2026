@@ -51,3 +51,4 @@ FROM auth.users u
 LEFT JOIN user_roles ur ON ur.user_id = u.id
 WHERE u.email = 'harab.business@gmail.com';
 
+

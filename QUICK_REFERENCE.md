@@ -195,3 +195,4 @@ VALUES ('USER_ID_HERE', 'admin');
 **Last Updated**: October 9, 2025  
 **Super Admin Email**: harab.business@gmail.com
 
+

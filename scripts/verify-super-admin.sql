@@ -77,3 +77,4 @@ LEFT JOIN user_roles ur ON ur.user_id = u.id
 GROUP BY u.id, u.email, u.created_at
 ORDER BY u.created_at DESC;
 
+

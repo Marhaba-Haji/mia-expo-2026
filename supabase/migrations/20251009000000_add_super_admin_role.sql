@@ -154,3 +154,4 @@ $$;
 -- To assign super admin role to harab.business@gmail.com, run:
 -- SELECT public.assign_super_admin_to_email('harab.business@gmail.com');
 
+

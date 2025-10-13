@@ -250,3 +250,4 @@ DROP FUNCTION IF EXISTS public.is_super_admin(_user_id UUID);
 UPDATE user_roles SET role = 'admin' WHERE role = 'super_admin';
 ```
 
+

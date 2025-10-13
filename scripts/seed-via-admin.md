@@ -54,3 +54,4 @@ Please insert 20 sample exhibitor records into the exhibitors table with diverse
 
 Lovable AI can directly manipulate the database for you.
 
+

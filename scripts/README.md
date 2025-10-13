@@ -140,3 +140,4 @@ Each exhibitor object should have:
 - `booth_number` (unique identifier)
 - Other fields are optional but recommended
 
+

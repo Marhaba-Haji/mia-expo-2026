@@ -610,7 +610,7 @@ export default function SponsorOpportunities() {
                     Explore Packages
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                <Button asChild variant="secondary" size="lg" className="border border-border shadow-elegant">
                   <a href="#contact">
                     <Download className="mr-2 h-4 w-4" />
                     Download Kit

@@ -21,13 +21,13 @@ const resources = {
         admin: 'Admin',
       },
       hero: {
-        title: 'India’s Inclusive Trade Show for Minority Communities',
+        title: "India's Inclusive Trade Show for Minority Communities",
         subtitle: 'Connecting Muslim, Sikh, Christian, Parsi and Jain businesses with buyers, investors and partners.',
         ctaExhibit: 'Register as Exhibitor',
         ctaTickets: 'Register as Visitor',
         ctaSponsor: 'Become a Sponsor',
-        metaDate: '12–14 Dec 2025',
-        metaPlace: 'Pragati Maidan, New Delhi',
+        metaDate: '05-07 Jun 2026',
+        metaPlace: 'Tripura Vasini, Palace Grounds, Bangalore',
       },
     }
   },
@@ -55,8 +55,8 @@ const resources = {
         ctaExhibit: 'एग्ज़िबिटर रजिस्टर करें',
         ctaTickets: 'आगंतुक के रूप में रजिस्टर करें',
         ctaSponsor: 'स्पॉन्सर बनें',
-        metaDate: '12–14 दिसम्बर 2025',
-        metaPlace: 'प्रगति मैदान, नई दिल्ली',
+        metaDate: '05-07 जून 2026',
+        metaPlace: 'त्रिपुरा वासिनी, पैलेस ग्राउंड्स, बैंगलोर',
       },
     }
   }
