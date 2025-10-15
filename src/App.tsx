@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import WhyExhibit from "./pages/WhyExhibit";
+import WhyVisit from "./pages/WhyVisit";
 import ExhibitorPackages from "./pages/ExhibitorPackages";
 import SponsorOpportunities from "./pages/SponsorOpportunities";
 import Programme from "./pages/Programme";
@@ -42,6 +43,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
             <Route path="/why-exhibit" element={<WhyExhibit />} />
+            <Route path="/why-visit" element={<WhyVisit />} />
             <Route path="/exhibitor-packages" element={<ExhibitorPackages />} />
             <Route path="/sponsor-opportunities" element={<SponsorOpportunities />} />
             <Route path="/programme" element={<Programme />} />

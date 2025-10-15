@@ -8,6 +8,7 @@ const resources = {
       nav: {
         about: 'About',
         whyExhibit: 'Why Exhibit',
+        whyVisit: 'Why Visit',
         packages: 'Exhibitor Packages',
         sponsors: 'Sponsor Opportunities',
         programme: 'Programme',
@@ -37,6 +38,7 @@ const resources = {
       nav: {
         about: 'हमारे बारे में',
         whyExhibit: 'प्रदर्शनी क्यों करें',
+        whyVisit: 'मुलाक़ात क्यों करें',
         packages: 'एग्ज़िबिटर पैकेज',
         sponsors: 'प्रायोजन अवसर',
         programme: 'कार्यक्रम',
