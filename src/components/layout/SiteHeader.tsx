@@ -1,6 +1,6 @@
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -19,6 +19,36 @@ export default function SiteHeader() {
   const location = useLocation();
   const [programmeMenuOpen, setProgrammeMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    const { body } = document;
+    if (!body) return;
+    const original = body.style.overflow;
+    if (mobileOpen) {
+      body.style.overflow = 'hidden';
+    } else {
+      body.style.overflow = original;
+    }
+    return () => {
+      body.style.overflow = original;
+    };
+  }, [mobileOpen]);
+
+  // Close on Escape key
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setMobileOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [mobileOpen]);
   
   // Check if any programme-related page is active
   const isProgrammeActive = ['/programme', '/speakers', '/floor-plan'].includes(location.pathname);
@@ -89,6 +119,9 @@ export default function SiteHeader() {
             size="icon"
             className="md:hidden"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-controls="mobile-menu"
+            aria-expanded={mobileOpen}
+            type="button"
             onClick={() => setMobileOpen((v) => !v)}
           >
             {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -102,7 +135,7 @@ export default function SiteHeader() {
             {/* Overlay */}
             <motion.button
               aria-label="Close menu overlay"
-              className="fixed inset-0 z-30 bg-black/30 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-40 bg-black/60 md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -110,39 +143,42 @@ export default function SiteHeader() {
             />
             {/* Panel */}
             <motion.div
-              className="md:hidden z-40 border-t bg-popover/95 supports-[backdrop-filter]:bg-popover/80 backdrop-blur shadow-lg"
+              role="dialog"
+              aria-label="Mobile Navigation"
+              id="mobile-menu"
+              className="md:hidden relative z-50 border-t bg-background shadow-xl"
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
-              <div className="container py-4">
-                <div className="flex flex-col gap-1 text-sm">
-                  <NavLink to="/about" onClick={() => setMobileOpen(false)} className="px-3 py-2 rounded-md hover:bg-muted/70 transition-colors">
+              <div className="container py-5">
+                <div className="flex flex-col gap-1 text-base">
+                  <NavLink to="/about" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
                     {t('nav.about')}
                   </NavLink>
-                  <NavLink to="/why-exhibit" onClick={() => setMobileOpen(false)} className="px-3 py-2 rounded-md hover:bg-muted/70 transition-colors">
+                  <NavLink to="/why-exhibit" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
                     {t('nav.whyExhibit')}
                   </NavLink>
-                  <NavLink to="/why-visit" onClick={() => setMobileOpen(false)} className="px-3 py-2 rounded-md hover:bg-muted/70 transition-colors">
+                  <NavLink to="/why-visit" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
                     {t('nav.whyVisit')}
                   </NavLink>
-                  <NavLink to="/sponsor-opportunities" onClick={() => setMobileOpen(false)} className="px-3 py-2 rounded-md hover:bg-muted/70 transition-colors">
+                  <NavLink to="/sponsor-opportunities" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
                     {t('nav.sponsors')}
                   </NavLink>
                   {/* Programme sub-links */}
-                  <div className="mt-2 mb-1 px-3 text-xs uppercase tracking-wide text-foreground/60">{t('nav.programme')}</div>
+                  <div className="mt-3 mb-2 px-4 text-xs uppercase tracking-wide text-foreground/60">{t('nav.programme')}</div>
                   <div className="ml-2 flex flex-col gap-1 border-l pl-3">
-                    <Link to="/programme" onClick={() => setMobileOpen(false)} className="px-3 py-2 -ml-3 rounded-md hover:bg-muted/70 transition-colors">{t('nav.programme')}</Link>
-                    <Link to="/speakers" onClick={() => setMobileOpen(false)} className="px-3 py-2 -ml-3 rounded-md hover:bg-muted/70 transition-colors">{t('nav.speakers')}</Link>
-                    <Link to="/floor-plan" onClick={() => setMobileOpen(false)} className="px-3 py-2 -ml-3 rounded-md hover:bg-muted/70 transition-colors">{t('nav.floor')}</Link>
+                    <Link to="/programme" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90">{t('nav.programme')}</Link>
+                    <Link to="/speakers" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90">{t('nav.speakers')}</Link>
+                    <Link to="/floor-plan" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90">{t('nav.floor')}</Link>
                   </div>
-                  <div className="h-px my-2 bg-border" />
-                  <NavLink to="/directory" onClick={() => setMobileOpen(false)} className="px-3 py-2 rounded-md hover:bg-muted/70 transition-colors">
+                  <div className="h-px my-3 bg-border" />
+                  <NavLink to="/directory" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
                     {t('nav.directory')}
                   </NavLink>
-                  <div className="pt-2">
-                    <Button asChild variant="hero" size="sm" className="w-full">
+                  <div className="pt-3">
+                    <Button asChild variant="hero" size="lg" className="w-full">
                       <Link to="/visitor-info" onClick={() => setMobileOpen(false)}>{t('hero.ctaTickets')}</Link>
                     </Button>
                   </div>
