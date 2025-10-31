@@ -27,6 +27,8 @@ import {
   Play,
   Heart
 } from "lucide-react";
+import { Factory, Utensils, LineChart, Ruler, Landmark, Palette } from "lucide-react";
+import { Rocket, Crown } from "lucide-react";
 import SEO from "@/components/seo/SEO";
 import Stats from "@/components/home/Stats";
 import Sectors from "@/components/home/Sectors";
@@ -37,27 +39,27 @@ export default function WhyExhibit() {
   const keyBenefits = [
     {
       icon: <Users className="h-8 w-8" />,
-      title: "35,000+ Qualified Visitors",
-      description: "High-intent buyers and trade visitors from across India and 20+ countries",
-      metric: "35,000+"
+      title: "Potential Buyers and Visitors",
+      description: "High-intent buyers and trade visitors from across India",
+      metric: "20,000+"
     },
     {
       icon: <Target className="h-8 w-8" />,
       title: "Curated B2B Matchmaking",
-      description: "Pre-scheduled meetings with decision makers and key stakeholders",
-      metric: "4,500+"
+      description: "Schedule meetings with decision makers and key stakeholders",
+      metric: "1000+"
     },
     {
       icon: <Globe className="h-8 w-8" />,
-      title: "Global Media Coverage",
-      description: "Extensive press coverage and digital marketing across international platforms",
-      metric: "50M+"
+      title: "Publicity Reach",
+      description: "Extensive press coverage and digital marketing across social media platforms",
+      metric: "100K"
     },
     {
       icon: <Building2 className="h-8 w-8" />,
-      title: "Diverse Business Network",
-      description: "Connect with Muslim, Sikh, Christian, Parsi, and Jain business communities",
-      metric: "600+"
+      title: "Partner & Collaborate",
+      description: "Collaborate with 200+ exhibitors to forge partnerships that complement and amplify business synergies",
+      metric: "200+"
     }
   ];
 
@@ -92,10 +94,10 @@ export default function WhyExhibit() {
     {
       icon: <Network className="h-6 w-6" />,
       title: "Premium Networking",
-      description: "Access to industry leaders, government officials, and international buyers"
+      description: "Access to industry leaders, government bodies, and buyers from across the country"
     },
     {
-      icon: <Shield className="h-6 w-6" />,
+      icon: <LineChart className="h-6 w-6" />,
       title: "Market Intelligence",
       description: "Exclusive insights into industry trends, policies, and market opportunities"
     },
@@ -154,7 +156,7 @@ export default function WhyExhibit() {
         "Technology transfer opportunities",
         "Export market access"
       ],
-      icon: <Zap className="h-8 w-8 text-primary" />
+      icon: <Factory className="h-8 w-8 text-primary" />
     },
     {
       title: "Hospitality",
@@ -164,24 +166,24 @@ export default function WhyExhibit() {
         "International partnerships",
         "Cultural exchange programs"
       ],
-      icon: <Star className="h-8 w-8 text-primary" />
+      icon: <Utensils className="h-8 w-8 text-primary" />
     }
   ];
 
   const supportServices = [
     {
       title: "Pre-Event Marketing",
-      description: "Promotional support, press releases, and digital marketing assistance",
+      description: "Promotional support, press releases, podcast video shoot, and promotion on Inspire Podcast YouTube and Instagram channels",
       icon: <Globe className="h-6 w-6" />
     },
     {
       title: "Booth Design & Setup",
-      description: "Professional booth design and complete setup assistance",
-      icon: <Building2 className="h-6 w-6" />
+      description: "Professional booth design and complete setup assistance on request*",
+      icon: <Ruler className="h-6 w-6" />
     },
     {
       title: "Lead Management",
-      description: "CRM tools and follow-up support for maximum conversion",
+      description: "Dedicated SEO-optimized business landing page with pre/post-event contact options.",
       icon: <Target className="h-6 w-6" />
     },
     {
@@ -200,12 +202,12 @@ export default function WhyExhibit() {
     {
       title: "Cultural Understanding",
       description: "Deep understanding of community-specific business needs and practices",
-      icon: <Heart className="h-6 w-6" />
+      icon: <Palette className="h-6 w-6" />
     },
     {
       title: "Government Support",
       description: "Direct access to policy makers and regulatory insights",
-      icon: <Shield className="h-6 w-6" />
+      icon: <Landmark className="h-6 w-6" />
     },
     {
       title: "International Reach",
@@ -241,21 +243,17 @@ export default function WhyExhibit() {
               <h1 className="font-brand text-4xl md:text-6xl leading-tight mb-6">
                 Why Exhibit at MIA Business Expo?
               </h1>
+              <p className="text-lg text-muted-foreground mb-4 max-w-3xl mx-auto">
+                Your hunt for the perfect platform to showcase your business to potential clients and collaborators is here!
+              </p>
               <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                Join India's most impactful inclusive trade show and unlock unprecedented opportunities 
-                for growth, networking, and business expansion. Connect with 35,000+ qualified buyers 
-                and secure deals worth crores.
+                Business EXPO by MIA is a unique platform to meet industry leaders, experts, entrepreneurs, and service providers—network, collaborate, and grow.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button asChild variant="hero" size="lg">
                   <Link to="/exhibitor-packages">
                     View Exhibitor Packages
                     <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link to="/exhibitor-portal">
-                    Register Now
                   </Link>
                 </Button>
               </div>
@@ -275,8 +273,8 @@ export default function WhyExhibit() {
           >
             <h2 className="font-brand text-3xl md:text-4xl mb-6">Unlock Your Business Potential</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Join 600+ exhibitors who trust MIA Business Expo to deliver exceptional results 
-              and drive meaningful business growth.
+              Promising deals and collaborations await as you showcase your offerings in a dynamic 
+              business environment curated to drive sales and visibility
             </p>
           </motion.div>
 
@@ -302,43 +300,7 @@ export default function WhyExhibit() {
         </div>
       </section>
 
-      {/* ROI & Business Impact */}
-      <section className="py-16 md:py-20 bg-muted/30">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-brand text-3xl md:text-4xl mb-6">Proven ROI & Business Impact</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Our exhibitors consistently achieve exceptional returns on their investment, 
-              with measurable business growth and long-term partnerships.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {roiMetrics.map((metric, index) => (
-              <motion.div
-                key={metric.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="p-6 text-center hover:shadow-glow transition-shadow">
-                  <CardContent className="p-0">
-                    <div className="mb-4 flex justify-center">{metric.icon}</div>
-                    <div className="text-3xl font-bold text-primary mb-2">{metric.value}</div>
-                    <h3 className="font-semibold text-lg mb-2">{metric.title}</h3>
-                    <p className="text-muted-foreground text-sm">{metric.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Exclusive Exhibitor Benefits */}
       <section className="py-16 md:py-20">
@@ -560,6 +522,7 @@ export default function WhyExhibit() {
           <div className="grid md:grid-cols-3 gap-6">
             <Card className="p-6 hover:shadow-glow transition-shadow">
               <CardContent className="p-0 text-center">
+                <div className="text-primary mb-3 flex justify-center"><Rocket className="h-6 w-6" /></div>
                 <h3 className="font-semibold text-xl mb-2">Startup Package</h3>
                 <div className="text-3xl font-bold text-primary mb-4">₹25,000</div>
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">
@@ -587,6 +550,7 @@ export default function WhyExhibit() {
                 Most Popular
               </Badge>
               <CardContent className="p-0 text-center">
+                <div className="text-primary mb-3 flex justify-center"><Award className="h-6 w-6" /></div>
                 <h3 className="font-semibold text-xl mb-2">Standard Package</h3>
                 <div className="text-3xl font-bold text-primary mb-4">₹75,000</div>
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">
@@ -611,6 +575,7 @@ export default function WhyExhibit() {
 
             <Card className="p-6 hover:shadow-glow transition-shadow">
               <CardContent className="p-0 text-center">
+                <div className="text-primary mb-3 flex justify-center"><Crown className="h-6 w-6" /></div>
                 <h3 className="font-semibold text-xl mb-2">Premium Package</h3>
                 <div className="text-3xl font-bold text-primary mb-4">₹1,50,000</div>
                 <ul className="space-y-2 text-sm text-muted-foreground mb-6">
@@ -657,12 +622,7 @@ export default function WhyExhibit() {
                   View All Packages
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
-                <Link to="/exhibitor-portal">
-                  <ArrowRight className="mr-2 h-4 w-4" />
-                  Register Now
-                </Link>
-              </Button>
+              
               <Button asChild variant="outline" size="lg" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
                 <Link to="/contact">
                   <Handshake className="mr-2 h-4 w-4" />
@@ -670,10 +630,7 @@ export default function WhyExhibit() {
                 </Link>
               </Button>
             </div>
-            <div className="flex items-center justify-center gap-2 text-sm opacity-75">
-              <CheckCircle className="h-4 w-4" />
-              <span>Early bird discounts available until October 2025</span>
-            </div>
+            
           </motion.div>
         </div>
       </section>
