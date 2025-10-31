@@ -19,6 +19,7 @@ export default function SiteHeader() {
   const location = useLocation();
   const [programmeMenuOpen, setProgrammeMenuOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileProgrammeOpen, setMobileProgrammeOpen] = useState(false);
 
   // Close mobile menu on route change
   useEffect(() => {
@@ -140,41 +141,91 @@ export default function SiteHeader() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setMobileOpen(false)}
+              aria-hidden
             />
             {/* Panel */}
             <motion.div
               role="dialog"
               aria-label="Mobile Navigation"
               id="mobile-menu"
-              className="md:hidden relative z-50 border-t bg-background shadow-xl"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
+              className="md:hidden fixed top-16 left-0 right-0 z-50 border-t bg-background shadow-xl"
+              initial={{ y: -12, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -12, opacity: 0 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
             >
-              <div className="container py-5">
+              <div className="container py-3 max-h-[calc(100dvh-4rem)] overflow-y-auto">
+                <div className="flex items-center justify-between px-1 pb-2">
+                  <span className="text-sm uppercase tracking-wide text-foreground/60">Menu</span>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="Close menu"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
+                </div>
                 <div className="flex flex-col gap-1 text-base">
-                  <NavLink to="/about" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
+                  <NavLink
+                    to="/about"
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) => `px-4 py-3 rounded-lg transition-colors font-medium ${isActive ? 'bg-accent text-foreground' : 'hover:bg-accent text-foreground/90'}`}
+                  >
                     {t('nav.about')}
                   </NavLink>
-                  <NavLink to="/why-exhibit" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
+                  <NavLink
+                    to="/why-exhibit"
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) => `px-4 py-3 rounded-lg transition-colors font-medium ${isActive ? 'bg-accent text-foreground' : 'hover:bg-accent text-foreground/90'}`}
+                  >
                     {t('nav.whyExhibit')}
                   </NavLink>
-                  <NavLink to="/why-visit" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
+                  <NavLink
+                    to="/why-visit"
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) => `px-4 py-3 rounded-lg transition-colors font-medium ${isActive ? 'bg-accent text-foreground' : 'hover:bg-accent text-foreground/90'}`}
+                  >
                     {t('nav.whyVisit')}
                   </NavLink>
-                  <NavLink to="/sponsor-opportunities" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
+                  <NavLink
+                    to="/sponsor-opportunities"
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) => `px-4 py-3 rounded-lg transition-colors font-medium ${isActive ? 'bg-accent text-foreground' : 'hover:bg-accent text-foreground/90'}`}
+                  >
                     {t('nav.sponsors')}
                   </NavLink>
-                  {/* Programme sub-links */}
-                  <div className="mt-3 mb-2 px-4 text-xs uppercase tracking-wide text-foreground/60">{t('nav.programme')}</div>
-                  <div className="ml-2 flex flex-col gap-1 border-l pl-3">
-                    <Link to="/programme" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90">{t('nav.programme')}</Link>
-                    <Link to="/speakers" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90">{t('nav.speakers')}</Link>
-                    <Link to="/floor-plan" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90">{t('nav.floor')}</Link>
-                  </div>
+                  {/* Programme collapsible */}
+                  <button
+                    type="button"
+                    className="mt-3 mb-2 w-full px-4 py-3 rounded-lg flex items-center justify-between text-base font-medium text-foreground/90 hover:bg-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                    aria-expanded={mobileProgrammeOpen}
+                    onClick={() => setMobileProgrammeOpen((v) => !v)}
+                  >
+                    <span>{t('nav.programme')}</span>
+                    <ChevronDown className={`h-4 w-4 transition-transform ${mobileProgrammeOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  <AnimatePresence initial={false}>
+                    {mobileProgrammeOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="ml-2 flex flex-col gap-1 border-l pl-3"
+                      >
+                        <Link to="/programme" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{t('nav.programme')}</Link>
+                        <Link to="/speakers" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{t('nav.speakers')}</Link>
+                        <Link to="/floor-plan" onClick={() => setMobileOpen(false)} className="px-4 py-2 -ml-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">{t('nav.floor')}</Link>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   <div className="h-px my-3 bg-border" />
-                  <NavLink to="/directory" onClick={() => setMobileOpen(false)} className="px-4 py-3 rounded-lg hover:bg-accent transition-colors text-foreground/90 font-medium">
+                  <NavLink
+                    to="/directory"
+                    onClick={() => setMobileOpen(false)}
+                    className={({ isActive }) => `px-4 py-3 rounded-lg transition-colors font-medium ${isActive ? 'bg-accent text-foreground' : 'hover:bg-accent text-foreground/90'}`}
+                  >
                     {t('nav.directory')}
                   </NavLink>
                   <div className="pt-3">
