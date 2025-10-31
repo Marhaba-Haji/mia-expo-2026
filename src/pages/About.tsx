@@ -117,15 +117,13 @@ export default function About() {
             >
               <Badge variant="secondary" className="mb-4">
                 <Calendar className="h-4 w-4 mr-2" />
-                December 12-14, 2025
+                05-07 Jun 2026
               </Badge>
               <h1 className="font-brand text-4xl md:text-6xl leading-tight mb-6">
-                About MIA Business Expo
+                MIA Business EXPO 2026
               </h1>
               <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                India's premier inclusive trade show empowering minority communities through commerce, 
-                collaboration, and cultural celebration. Join us in building bridges and creating opportunities 
-                for Muslim, Sikh, Christian, Parsi, and Jain businesses.
+                A unique business exhibition and networking platform for minority communities, specially curated by MIA, Business Expo 2026 is the perfect opportunity for you to showcase your business to potential partners, customers and investors while networking with industry giants, experts and potential collaborators from allied industries.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Button asChild variant="hero" size="lg">
@@ -159,18 +157,14 @@ export default function About() {
                 <h2 className="font-brand text-3xl">Our Mission</h2>
               </div>
               <p className="text-lg text-muted-foreground mb-6">
-                To empower minority communities across India by creating a world-class platform that 
-                showcases their innovations, facilitates meaningful business connections, and drives 
-                inclusive economic growth.
+                At Muslim Industrialists Association (MIA), we strongly believe that networking and collaboration is one of the driving forces for continued success in business. By empowering each other and collaborating, we can create a self-sufficient ecosystem that thrives on positivity and shared enthusiasm. The minorities in India comprise of Muslims, Sikhs, Parsis, Christians etc., and MIA Business Expo 2026 is especially curated to offer a dynamic business and networking platform to help businesses from minority communities to network, collaborate and take their businesses to greater heights.
               </p>
               <div className="flex items-center gap-3">
                 <Eye className="h-8 w-8 text-primary" />
                 <h3 className="font-brand text-2xl">Our Vision</h3>
               </div>
               <p className="text-lg text-muted-foreground">
-                To become India's most impactful and inclusive business platform, where diversity 
-                in commerce is celebrated and every community has equal opportunities to thrive 
-                in the global marketplace.
+                We aim to become the leading business exhibition and networking platforms for minorities to come together and showcase their offerings and services to potential clients from across the world. Businesses in India have a great potential and MIA Business Expo is not just a showcase, but a celebration of our diversity and untapped talents and abilities that would make India the superpower on the global map.
               </p>
             </motion.div>
             
@@ -257,7 +251,7 @@ export default function About() {
                 <Calendar className="h-12 w-12 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold text-xl mb-3">When</h3>
                 <p className="text-muted-foreground">
-                  December 12-14, 2025<br />
+                  05-07 Jun 2026<br />
                   Three days of intensive networking and business development
                 </p>
               </CardContent>

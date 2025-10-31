@@ -236,7 +236,7 @@ export default function WhyExhibit() {
             >
               <Badge variant="secondary" className="mb-4">
                 <Calendar className="h-4 w-4 mr-2" />
-                December 12-14, 2025
+                05-07 Jun 2026
               </Badge>
               <h1 className="font-brand text-4xl md:text-6xl leading-tight mb-6">
                 Why Exhibit at MIA Business Expo?

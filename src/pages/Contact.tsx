@@ -171,7 +171,7 @@ export default function Contact() {
   ];
 
   const eventInfo = {
-    date: "December 12-14, 2025",
+    date: "05-07 Jun 2026",
     time: "9:00 AM - 6:00 PM IST",
     venue: "Pragati Maidan",
     address: "Pragati Maidan, Mathura Road, New Delhi - 110002, India",
