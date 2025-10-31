@@ -30,22 +30,22 @@ export default function About() {
     {
       icon: <Users className="h-6 w-6" />,
       title: "Inclusivity",
-      description: "Creating equal opportunities for all minority communities to showcase their businesses and innovations."
+      description: "MIA Business Expo offers a platform to minority communities to showcase their offerings in a wholesome and inclusive environment that offers equal opportunity to all."
     },
     {
       icon: <Award className="h-6 w-6" />,
       title: "Excellence",
-      description: "Maintaining the highest standards in trade show organization and business facilitation."
+      description: "Showcasing the finest offerings from both established and young businesses in a dynamic business environment"
     },
     {
       icon: <TrendingUp className="h-6 w-6" />,
       title: "Innovation",
-      description: "Embracing new technologies and methodologies to enhance business connections and growth."
+      description: "Adapting and showcasing the latest technology and innovation that is shaping the future of the industries under spotlight"
     },
     {
       icon: <Handshake className="h-6 w-6" />,
       title: "Collaboration",
-      description: "Fostering partnerships and networks that drive mutual success and community development."
+      description: "Curated to encourage collaborations between businesses in allied industries to create a self sufficient ecosystem"
     }
   ];
 
@@ -202,7 +202,9 @@ export default function About() {
                 The Muslim Industrialists Association (MIA) has been at the forefront of promoting 
                 inclusive business development in India for over two decades. Our organization 
                 represents a diverse network of entrepreneurs, industrialists, and business leaders 
-                committed to fostering economic growth across minority communities.
+                committed to fostering economic growth across minority communities. For more details visit 
+                {" "}
+                <a href="https://www.miaindia.org">www.miaindia.org</a>
               </p>
               <div className="grid md:grid-cols-3 gap-6">
                 <Card className="p-6 text-center">
@@ -213,13 +215,13 @@ export default function About() {
                 </Card>
                 <Card className="p-6 text-center">
                   <CardContent className="p-0">
-                    <div className="text-3xl font-bold text-primary mb-2">5000+</div>
+                    <div className="text-3xl font-bold text-primary mb-2">650+</div>
                     <div className="text-sm text-muted-foreground">Member Businesses</div>
                   </CardContent>
                 </Card>
                 <Card className="p-6 text-center">
                   <CardContent className="p-0">
-                    <div className="text-3xl font-bold text-primary mb-2">₹500Cr+</div>
+                    <div className="text-3xl font-bold text-primary mb-2">₹10Cr+</div>
                     <div className="text-sm text-muted-foreground">Business Generated</div>
                   </CardContent>
                 </Card>
@@ -238,7 +240,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="font-brand text-3xl md:text-4xl mb-6">MIA Business Expo 2025</h2>
+            <h2 className="font-brand text-3xl md:text-4xl mb-6">When, Where and Who</h2>
             <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
               Join us for India's most comprehensive inclusive trade show, bringing together 
               businesses, investors, and partners from around the world.
@@ -262,8 +264,8 @@ export default function About() {
                 <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold text-xl mb-3">Where</h3>
                 <p className="text-muted-foreground">
-                  Pragati Maidan, New Delhi<br />
-                  India's premier exhibition and convention center
+                  Tripura Vasini, Palace Grounds, Bangalore<br />
+                  One of India's premier exhibition and convention venues
                 </p>
               </CardContent>
             </Card>
@@ -273,8 +275,7 @@ export default function About() {
                 <Users className="h-12 w-12 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold text-xl mb-3">Who</h3>
                 <p className="text-muted-foreground">
-                  Muslim, Sikh, Christian, Parsi, and Jain<br />
-                  Business communities and their partners
+                  Open to industrialists, entrepreneurs, business owners, startup founders, MSMEs, and the general public worldwide.
                 </p>
               </CardContent>
             </Card>
@@ -397,10 +398,7 @@ export default function About() {
                 </Link>
               </Button>
             </div>
-            <div className="mt-8 flex items-center justify-center gap-2 text-sm opacity-75">
-              <CheckCircle className="h-4 w-4" />
-              <span>Early bird discounts available until October 2025</span>
-            </div>
+            
           </motion.div>
         </div>
       </section>
