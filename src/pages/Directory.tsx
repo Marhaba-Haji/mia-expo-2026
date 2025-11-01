@@ -203,102 +203,131 @@ export default function Directory() {
                   className="pl-10 md:pl-12 pr-4 py-2 md:py-3 text-base md:text-lg"
                 />
               </div>
-
-              {/* Quick Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 max-w-2xl mx-auto px-4">
-                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
-                  <div className="text-xl md:text-2xl font-bold text-primary">{exhibitorData.length}+</div>
-                  <div className="text-xs md:text-sm text-muted-foreground">Exhibitors</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
-                  <div className="text-xl md:text-2xl font-bold text-primary">{sectors.length - 1}</div>
-                  <div className="text-xs md:text-sm text-muted-foreground">Sectors</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
-                  <div className="text-xl md:text-2xl font-bold text-primary">20+</div>
-                  <div className="text-xs md:text-sm text-muted-foreground">Countries</div>
-                </div>
-                <div className="bg-white/10 backdrop-blur rounded-lg p-3 md:p-4">
-                  <div className="text-xl md:text-2xl font-bold text-primary">5</div>
-                  <div className="text-xs md:text-sm text-muted-foreground">Communities</div>
-                </div>
-              </div>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Featured Exhibitors */}
-      {exhibitorData.length > 0 && (
-        <section className="py-12 md:py-16 lg:py-20">
-          <div className="container px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-              className="text-center mb-8 md:mb-12"
-            >
-              <h2 className="font-brand text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6">Our Exhibitors</h2>
-              <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-                Discover our exhibitors showcasing cutting-edge innovations and solutions.
-            </p>
-          </motion.div>
-
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-              {exhibitorData.slice(0, 6).map((exhibitor, index) => (
-              <motion.div
-                key={exhibitor.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
+      {exhibitorData.length > 0 && (() => {
+        const premiumExhibitors = exhibitorData.filter(exhibitor => exhibitor.package_type === 'Premium');
+        return premiumExhibitors.length > 0 && (
+          <section className="py-12 md:py-16 lg:py-20">
+            <div className="container px-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+                className="text-center mb-8 md:mb-12"
               >
-                <Card className="h-full hover:shadow-glow transition-shadow group">
-                    <CardContent className="p-4 md:p-6">
-                      <div className="flex flex-col gap-3 mb-3 md:mb-4">
-                        <div className="flex items-start gap-3">
-                          <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                            <Building2 className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+                <h2 className="font-brand text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6">Our Exhibitors</h2>
+                <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
+                  Discover our exhibitors showcasing cutting-edge innovations and solutions.
+              </p>
+            </motion.div>
+
+              <div className="relative w-full overflow-hidden py-8">
+                <style dangerouslySetInnerHTML={{ __html: `
+                  @keyframes exhibitorScroll {
+                    0% {
+                      transform: translateX(0);
+                    }
+                    100% {
+                      transform: translateX(-50%);
+                    }
+                  }
+                  .exhibitor-carousel {
+                    animation: exhibitorScroll ${Math.max(premiumExhibitors.length * 15, 60)}s linear infinite;
+                  }
+                  @media (prefers-reduced-motion: reduce) {
+                    .exhibitor-carousel {
+                      animation: none;
+                    }
+                  }
+                `}} />
+                <div 
+                  className="flex gap-4 md:gap-6 exhibitor-carousel"
+                  style={{
+                    width: 'max-content',
+                  }}
+                >
+                  {/* Duplicate the array for seamless loop */}
+                  {[...premiumExhibitors, ...premiumExhibitors].map((exhibitor, index) => (
+                  <div
+                    key={`${exhibitor.id}-${index}`}
+                    className="flex-shrink-0 w-[280px] md:w-[320px]"
+                  >
+                    <Card className="h-full hover:shadow-glow transition-shadow group">
+                      <CardContent className="p-4 md:p-6">
+                        <div className="flex flex-col gap-3 mb-3 md:mb-4">
+                          <div className="flex items-start gap-3">
+                            <div className="w-10 h-10 md:w-12 md:h-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden relative">
+                              {exhibitor.logo_url ? (
+                                <>
+                                  <img 
+                                    src={exhibitor.logo_url} 
+                                    alt={`${exhibitor.company_name} logo`}
+                                    className="w-full h-full object-contain p-1"
+                                    onError={(e) => {
+                                      const target = e.target as HTMLImageElement;
+                                      target.style.display = 'none';
+                                      const icon = target.nextElementSibling as HTMLElement;
+                                      if (icon) {
+                                        icon.style.display = 'block';
+                                      }
+                                    }}
+                                  />
+                                  <Building2 
+                                    className="h-5 w-5 md:h-6 md:w-6 text-primary absolute inset-0 m-auto" 
+                                    style={{ display: 'none' }}
+                                  />
+                                </>
+                              ) : (
+                                <Building2 className="h-5 w-5 md:h-6 md:w-6 text-primary" />
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="font-semibold text-base md:text-lg line-clamp-1">{exhibitor.company_name}</h3>
+                              <p className="text-xs md:text-sm text-muted-foreground truncate">{exhibitor.industry || 'N/A'}</p>
+                            </div>
                           </div>
-                          <div className="flex-1 min-w-0">
-                            <h3 className="font-semibold text-base md:text-lg line-clamp-1">{exhibitor.company_name}</h3>
-                            <p className="text-xs md:text-sm text-muted-foreground truncate">{exhibitor.industry || 'N/A'}</p>
+                          {exhibitor.package_type === 'Premium' && (
+                            <Badge variant="secondary" className="bg-accent/10 text-accent w-fit text-xs">
+                              <Star className="h-3 w-3 mr-1" />
+                              Premium
+                            </Badge>
+                          )}
                         </div>
+                        
+                        <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
+                          {exhibitor.description || 'No description available'}
+                        </p>
+                        
+                        <div className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
+                          <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
+                          <span className="truncate">{exhibitor.city && exhibitor.state ? `${exhibitor.city}, ${exhibitor.state}` : 'Location not specified'}</span>
                         </div>
-                        {exhibitor.package_type === 'Premium' && (
-                          <Badge variant="secondary" className="bg-accent/10 text-accent w-fit text-xs">
-                            <Star className="h-3 w-3 mr-1" />
-                            Premium
-                          </Badge>
-                        )}
-                    </div>
-                    
-                      <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4 line-clamp-2">
-                        {exhibitor.description || 'No description available'}
-                      </p>
-                      
-                      <div className="flex items-center gap-1.5 text-xs md:text-sm text-muted-foreground mb-3 md:mb-4">
-                        <MapPin className="h-3 w-3 md:h-4 md:w-4 flex-shrink-0" />
-                        <span className="truncate">{exhibitor.city && exhibitor.state ? `${exhibitor.city}, ${exhibitor.state}` : 'Location not specified'}</span>
-                    </div>
-                     
-                       <div className="flex items-center justify-between gap-2">
-                         <Badge variant="outline" className="text-xs">{exhibitor.package_type || 'Standard'}</Badge>
+                         
+                        <div className="flex items-center justify-between gap-2">
+                          <Badge variant="outline" className="text-xs">{exhibitor.package_type || 'Standard'}</Badge>
                           <Button variant="outline" size="sm" asChild className="text-xs md:text-sm">
                             <Link to={`/exhibitor/${exhibitor.slug || exhibitor.id}`}>
                               <Eye className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
                               <span className="hidden sm:inline">View Details</span>
                               <span className="sm:hidden">View</span>
                             </Link>
-                        </Button>
-                     </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ))}
+              </div>
+            </div>
         </div>
       </section>
-      )}
+        );
+      })()}
 
       {/* Filters and Search */}
       <section className="py-8 md:py-12 lg:py-16 bg-muted/30">
