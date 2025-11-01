@@ -16,7 +16,10 @@ import { toast } from '@/hooks/use-toast';
 
 interface Exhibitor {
   id: string;
+  brand_name?: string;
   company_name: string;
+  contact_person?: string;
+  business_type?: string;
   tagline?: string;
   logo_url?: string;
   description?: string;
@@ -43,6 +46,7 @@ interface Exhibitor {
   youtube_url?: string;
   gallery_images?: string[];
   video_url?: string;
+  catalog_url?: string;
   certifications?: string[];
   awards?: string[];
   unique_selling_points?: string[];
@@ -162,6 +166,9 @@ export default function ExhibitorDetail() {
                   {exhibitor.industry && (
                     <Badge variant="secondary">{exhibitor.industry}</Badge>
                   )}
+                  {exhibitor.business_type && (
+                    <Badge variant="secondary">{exhibitor.business_type}</Badge>
+                  )}
                   {exhibitor.package_type && (
                     <Badge variant="default">{exhibitor.package_type}</Badge>
                   )}
@@ -170,6 +177,9 @@ export default function ExhibitorDetail() {
                   )}
                 </div>
 
+                {exhibitor.brand_name && (
+                  <p className="text-lg text-primary font-medium mb-2">{exhibitor.brand_name}</p>
+                )}
                 <h1 className="text-4xl font-brand font-bold mb-3">{exhibitor.company_name}</h1>
                 
                 {exhibitor.tagline && (
@@ -255,6 +265,26 @@ export default function ExhibitorDetail() {
                     <p className="text-muted-foreground whitespace-pre-line leading-relaxed">
                       {exhibitor.products_services}
                     </p>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Catalog */}
+              {exhibitor.catalog_url && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Package className="h-5 w-5" />
+                      Product/Service Catalog
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Button asChild className="w-full">
+                      <a href={exhibitor.catalog_url} target="_blank" rel="noopener noreferrer">
+                        <Globe className="mr-2 h-4 w-4" />
+                        View Catalog
+                      </a>
+                    </Button>
                   </CardContent>
                 </Card>
               )}
@@ -361,16 +391,76 @@ export default function ExhibitorDetail() {
               {exhibitor.video_url && (
                 <Card>
                   <CardHeader>
-                    <CardTitle>Company Video</CardTitle>
+                    <CardTitle className="flex items-center gap-2">
+                      <Youtube className="h-5 w-5" />
+                      Podcast/Video
+                    </CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="aspect-video">
-                      <iframe
-                        src={exhibitor.video_url}
-                        className="w-full h-full rounded-lg"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                      />
+                      {(() => {
+                        // Handle YouTube URLs
+                        const youtubeRegex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([a-zA-Z0-9_-]{11})/;
+                        const youtubeMatch = exhibitor.video_url.match(youtubeRegex);
+                        
+                        if (youtubeMatch) {
+                          const videoId = youtubeMatch[1];
+                          // Build embed URL with autoplay parameters
+                          const embedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playsinline=1&rel=0`;
+                          return (
+                            <iframe
+                              src={embedUrl}
+                              className="w-full h-full rounded-lg"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                              title={`${exhibitor.company_name} video`}
+                            />
+                          );
+                        }
+                        
+                        // Handle other video URLs or direct embed URLs
+                        if (exhibitor.video_url.includes('embed') || exhibitor.video_url.includes('iframe')) {
+                          // Add autoplay parameters to existing embed URLs
+                          const separator = exhibitor.video_url.includes('?') ? '&' : '?';
+                          const autoplayUrl = `${exhibitor.video_url}${separator}autoplay=1&mute=1`;
+                          return (
+                            <iframe
+                              src={autoplayUrl}
+                              className="w-full h-full rounded-lg"
+                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                              allowFullScreen
+                              title={`${exhibitor.company_name} video`}
+                            />
+                          );
+                        }
+                        
+                        // Fallback: Try to embed as iframe if it's a direct video URL
+                        if (exhibitor.video_url.match(/\.(mp4|webm|ogg)$/i)) {
+                          return (
+                            <video
+                              src={exhibitor.video_url}
+                              className="w-full h-full rounded-lg"
+                              autoPlay
+                              muted
+                              loop
+                              playsInline
+                              controls
+                            />
+                          );
+                        }
+                        
+                        // Final fallback: Show as a link
+                        return (
+                          <div className="w-full h-full rounded-lg bg-muted flex items-center justify-center">
+                            <Button asChild variant="outline">
+                              <a href={exhibitor.video_url} target="_blank" rel="noopener noreferrer">
+                                <Youtube className="mr-2 h-4 w-4" />
+                                Watch Video
+                              </a>
+                            </Button>
+                          </div>
+                        );
+                      })()}
                     </div>
                   </CardContent>
                 </Card>
@@ -423,6 +513,17 @@ export default function ExhibitorDetail() {
                   <CardTitle>Contact Information</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
+                  {exhibitor.contact_person && (
+                    <div>
+                      <div className="flex items-center gap-2 text-sm font-medium mb-1">
+                        <User className="h-4 w-4" />
+                        Contact Person
+                      </div>
+                      <p className="text-sm text-muted-foreground pl-6">
+                        {exhibitor.contact_person}
+                      </p>
+                    </div>
+                  )}
                   {exhibitor.email && (
                     <div>
                       <div className="flex items-center gap-2 text-sm font-medium mb-1">
