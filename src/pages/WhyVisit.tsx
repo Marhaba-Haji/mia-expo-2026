@@ -43,27 +43,39 @@ export default function WhyVisit() {
   const keyBenefits = [
     {
       icon: <Network className="h-8 w-8" />,
-      title: "Connect with 600+ Exhibitors",
+      title: "Connect with 200+ Exhibitors",
       description: "Access India's leading businesses and international companies showcasing cutting-edge products and services",
-      metric: "600+"
+      metric: "200+"
     },
     {
       icon: <Handshake className="h-8 w-8" />,
-      title: "B2B Matchmaking",
-      description: "Pre-scheduled meetings with key decision-makers and industry leaders relevant to your business",
-      metric: "4,500+"
+      title: "Industry Sectors",
+      description: "Our expo theme centers around 3 integrated sectors: Infrastructure, Manufacturing, and Hospitality",
+      metric: "3"
     },
     {
       icon: <GraduationCap className="h-8 w-8" />,
-      title: "Expert-Led Sessions",
-      description: "Attend industry seminars, panel discussions, and keynotes from market leaders",
-      metric: "50+"
+      title: "Business Categories",
+      description: (
+        <>
+          Explore diverse business sectors and categories across multiple industries.{" "}
+          <a 
+            href="https://drive.google.com/file/d/1r8v1ycF-TbwAUS__BweiKnGkumBhqtr5" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="text-primary hover:underline font-medium"
+          >
+            View all business categories
+          </a>
+        </>
+      ),
+      metric: "60+"
     },
     {
       icon: <Globe className="h-8 w-8" />,
-      title: "International Opportunities",
-      description: "Meet exhibitors and buyers from 20+ countries exploring business expansion",
-      metric: "20+"
+      title: "Indian States Represented",
+      description: "Exhibitors from 5+ states and 25+ cities across India",
+      metric: "5+"
     }
   ];
 
@@ -281,7 +293,7 @@ export default function WhyVisit() {
                 Why Visit MIA Business Expo?
               </h1>
               <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                Join 35,000+ business professionals, connect with 600+ exhibitors, and discover 
+                Join 20,000+ business professionals, connect with 200+ exhibitors, and discover 
                 unlimited opportunities to grow your business. Whether you're sourcing products, 
                 seeking partnerships, or staying ahead of industry trends—this is where business happens.
               </p>
@@ -595,26 +607,26 @@ export default function WhyVisit() {
             >
               <h2 className="font-brand text-3xl md:text-4xl mb-4">Join Thousands of Success Stories</h2>
               <p className="text-lg text-primary-foreground/90 max-w-3xl mx-auto">
-                Every year, MIA Business Expo delivers measurable results for visitors
+                MIA Business Expo delivers measurable results for visitors
               </p>
             </motion.div>
 
             <div className="grid md:grid-cols-4 gap-8">
               <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2">35,000+</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2">20,000+</div>
                 <p className="text-primary-foreground/80">Business Visitors</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2">600+</div>
+                <div className="text-4xl md:text-5xl font-bold mb-2">200+</div>
                 <p className="text-primary-foreground/80">Exhibitors</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2">20+</div>
-                <p className="text-primary-foreground/80">Countries Represented</p>
+                <div className="text-4xl md:text-5xl font-bold mb-2">5+</div>
+                <p className="text-primary-foreground/80">States Represented</p>
               </div>
               <div className="text-center">
-                <div className="text-4xl md:text-5xl font-bold mb-2">₹500Cr+</div>
-                <p className="text-primary-foreground/80">Business Generated</p>
+                <div className="text-4xl md:text-5xl font-bold mb-2">₹100Cr+</div>
+                <p className="text-primary-foreground/80">Cumulative Exhibitor Revenue</p>
               </div>
             </div>
           </div>
@@ -638,7 +650,7 @@ export default function WhyVisit() {
               Ready to Accelerate Your Business Growth?
             </h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Register now for FREE and join 35,000+ business professionals at India's most 
+              Register now for FREE and join 20,000+ business professionals at India's most 
               impactful inclusive trade show. Don't miss this opportunity to connect, discover, and grow.
             </p>
             <div className="flex flex-wrap justify-center gap-4 mb-6">
@@ -659,10 +671,6 @@ export default function WhyVisit() {
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-600" />
                 <span>No registration fee</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <CheckCircle className="h-4 w-4 text-green-600" />
-                <span>Instant QR pass</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="h-4 w-4 text-green-600" />
