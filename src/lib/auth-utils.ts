@@ -11,34 +11,19 @@ export const SUPER_ADMIN_EMAIL = 'harab.business@gmail.com';
  */
 export async function isSuperAdmin(userId: string): Promise<boolean> {
   try {
-    // Try RPC function first
-    const { data: rpcData, error: rpcError } = await supabase.rpc('is_super_admin', {
-      _user_id: userId
-    });
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .eq('role', 'admin')
+      .maybeSingle();
 
-    // If RPC function doesn't exist, fall back to direct query
-    if (rpcError && rpcError.code === 'PGRST202') {
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', userId)
-        .eq('role', 'super_admin')
-        .single();
-
-      if (error && error.code !== 'PGRST116') {
-        console.error('Error checking super admin status:', error);
-        return false;
-      }
-
-      return !!data;
-    }
-
-    if (rpcError) {
-      console.error('Error checking super admin status:', rpcError);
+    if (error && error.code !== 'PGRST116') {
+      console.error('Error checking super admin status:', error);
       return false;
     }
 
-    return rpcData || false;
+    return !!data;
   } catch (error) {
     console.error('Exception checking super admin status:', error);
     return false;
@@ -50,33 +35,18 @@ export async function isSuperAdmin(userId: string): Promise<boolean> {
  */
 export async function isAdminOrSuper(userId: string): Promise<boolean> {
   try {
-    // Try RPC function first
-    const { data: rpcData, error: rpcError } = await supabase.rpc('is_admin_or_super', {
-      _user_id: userId
-    });
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId)
+      .in('role', ['admin']);
 
-    // If RPC function doesn't exist, fall back to direct query
-    if (rpcError && rpcError.code === 'PGRST202') {
-      const { data, error } = await supabase
-        .from('user_roles')
-        .select('role')
-        .eq('user_id', userId)
-        .in('role', ['admin', 'super_admin']);
-
-      if (error) {
-        console.error('Error checking admin status:', error);
-        return false;
-      }
-
-      return data && data.length > 0;
-    }
-
-    if (rpcError) {
-      console.error('Error checking admin status:', rpcError);
+    if (error) {
+      console.error('Error checking admin status:', error);
       return false;
     }
 
-    return rpcData || false;
+    return data && data.length > 0;
   } catch (error) {
     console.error('Exception checking admin status:', error);
     return false;
@@ -88,7 +58,7 @@ export async function isAdminOrSuper(userId: string): Promise<boolean> {
  */
 export async function hasRole(
   userId: string, 
-  role: 'admin' | 'user' | 'super_admin'
+  role: 'admin' | 'user'
 ): Promise<boolean> {
   try {
     const { data, error } = await supabase.rpc('has_role', {
@@ -101,7 +71,7 @@ export async function hasRole(
       return false;
     }
 
-    return data || false;
+    return !!data;
   } catch (error) {
     console.error('Exception checking role:', error);
     return false;
@@ -166,18 +136,30 @@ export async function getUserProfile(userId: string) {
  */
 export async function assignSuperAdminRole(email: string) {
   try {
-    const { error } = await supabase.rpc('assign_super_admin_to_email', {
-      _email: email
-    });
+    // Get user by email
+    const { data: userData, error: userError } = await supabase
+      .from('profiles')
+      .select('id')
+      .eq('email', email)
+      .maybeSingle();
 
-    if (error) {
-      console.error('Error assigning super admin role:', error);
-      return { success: false, error: error.message };
+    if (userError || !userData) {
+      return { success: false, error: 'User not found' };
+    }
+
+    // Insert admin role
+    const { error: roleError } = await supabase
+      .from('user_roles')
+      .insert({ user_id: userData.id, role: 'admin' });
+
+    if (roleError) {
+      console.error('Error assigning admin role:', roleError);
+      return { success: false, error: roleError.message };
     }
 
     return { success: true };
   } catch (error) {
-    console.error('Exception assigning super admin role:', error);
+    console.error('Exception assigning admin role:', error);
     return { success: false, error: String(error) };
   }
 }

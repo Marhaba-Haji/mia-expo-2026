@@ -39,6 +39,7 @@ interface Exhibitor {
   city?: string | null;
   state?: string | null;
   gallery_images?: string[] | null;
+  slug?: string | null;
 }
 
 export function ExhibitorsManager() {
@@ -71,6 +72,7 @@ export function ExhibitorsManager() {
     city: '',
     state: '',
     gallery_images: [] as string[],
+    slug: '',
   });
 
   useEffect(() => {
@@ -90,8 +92,39 @@ export function ExhibitorsManager() {
     }
   };
 
+  const generateSlug = (text: string): string => {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check for duplicate slug
+    if (formData.slug) {
+      const { data: existingExhibitors } = await supabase
+        .from('exhibitors')
+        .select('id, slug')
+        .eq('slug', formData.slug);
+
+      if (existingExhibitors && existingExhibitors.length > 0) {
+        const isDuplicate = editingId 
+          ? existingExhibitors.some(e => e.id !== editingId)
+          : existingExhibitors.length > 0;
+        
+        if (isDuplicate) {
+          toast({ 
+            title: 'Duplicate Slug', 
+            description: 'This slug is already in use. Please modify the slug field.', 
+            variant: 'destructive' 
+          });
+          return;
+        }
+      }
+    }
 
     // Prepare data for submission - convert empty gallery_images array to null if empty
     const submitData = {
@@ -155,6 +188,7 @@ export function ExhibitorsManager() {
       city: exhibitor.city || '',
       state: exhibitor.state || '',
       gallery_images: exhibitor.gallery_images || [],
+      slug: exhibitor.slug || '',
     });
     setIsOpen(true);
   };
@@ -202,6 +236,7 @@ export function ExhibitorsManager() {
       city: '',
       state: '',
       gallery_images: [],
+      slug: '',
     });
     setEditingId(null);
     setIsOpen(false);
@@ -260,7 +295,14 @@ export function ExhibitorsManager() {
                   <Input
                     id="brand_name"
                     value={formData.brand_name}
-                    onChange={(e) => setFormData({ ...formData, brand_name: e.target.value })}
+                    onChange={(e) => {
+                      const brandName = e.target.value;
+                      setFormData({ 
+                        ...formData, 
+                        brand_name: brandName,
+                        slug: brandName ? generateSlug(brandName) : ''
+                      });
+                    }}
                   />
                 </div>
                 <div className="space-y-2">
@@ -271,6 +313,19 @@ export function ExhibitorsManager() {
                     onChange={(e) => setFormData({ ...formData, company_name: e.target.value })}
                     required
                   />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="slug">Page URL Slug *</Label>
+                  <Input
+                    id="slug"
+                    value={formData.slug}
+                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                    placeholder="e.g., company-name"
+                    required
+                  />
+                  <p className="text-xs text-muted-foreground">
+                    Auto-populated from brand name. Must be unique.
+                  </p>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="tagline">Brand Tagline</Label>

@@ -57,6 +57,7 @@ interface Exhibitor {
   booth_number?: string;
   status?: string;
   founded_year?: number;
+  slug?: string;
 }
 
 export default function Directory() {
@@ -282,13 +283,13 @@ export default function Directory() {
                      
                        <div className="flex items-center justify-between gap-2">
                          <Badge variant="outline" className="text-xs">{exhibitor.package_type || 'Standard'}</Badge>
-                         <Button variant="outline" size="sm" asChild className="text-xs md:text-sm">
-                           <Link to={`/exhibitor/${exhibitor.id}`}>
-                             <Eye className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
-                             <span className="hidden sm:inline">View Details</span>
-                             <span className="sm:hidden">View</span>
-                           </Link>
-                       </Button>
+                          <Button variant="outline" size="sm" asChild className="text-xs md:text-sm">
+                            <Link to={`/exhibitor/${exhibitor.slug || exhibitor.id}`}>
+                              <Eye className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                              <span className="hidden sm:inline">View Details</span>
+                              <span className="sm:hidden">View</span>
+                            </Link>
+                        </Button>
                      </div>
                   </CardContent>
                 </Card>
@@ -458,7 +459,7 @@ export default function Directory() {
                             
                             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
                               <Button variant="outline" size="sm" asChild className="text-xs md:text-sm flex-1 sm:flex-none">
-                                <Link to={`/exhibitor/${exhibitor.id}`}>
+                                <Link to={`/exhibitor/${exhibitor.slug || exhibitor.id}`}>
                                   <Eye className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
                                   <span className="hidden sm:inline">View Details</span>
                                   <span className="sm:hidden">View</span>

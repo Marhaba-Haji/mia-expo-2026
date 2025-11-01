@@ -48,24 +48,25 @@ interface Exhibitor {
   unique_selling_points?: string[];
   package_type?: string;
   status?: string;
+  slug?: string;
 }
 
 export default function ExhibitorDetail() {
-  const { id } = useParams<{ id: string }>();
+  const { slug } = useParams<{ slug: string }>();
   const [exhibitor, setExhibitor] = useState<Exhibitor | null>(null);
   const [loading, setLoading] = useState(true);
   const [showEnquiryForm, setShowEnquiryForm] = useState(false);
 
   useEffect(() => {
     fetchExhibitor();
-  }, [id]);
+  }, [slug]);
 
   const fetchExhibitor = async () => {
     try {
       const { data, error } = await supabase
         .from('exhibitors')
         .select('*')
-        .eq('id', id)
+        .eq('slug', slug)
         .eq('status', 'approved')
         .maybeSingle();
 
@@ -125,7 +126,7 @@ export default function ExhibitorDetail() {
       <SEO
         title={`${exhibitor.company_name} - MIA Business Expo`}
         description={exhibitor.tagline || exhibitor.description || `Visit ${exhibitor.company_name} at MIA Business Expo`}
-        canonical={`/exhibitor/${exhibitor.id}`}
+        canonical={`/exhibitor/${exhibitor.slug || exhibitor.id}`}
       />
 
       <main className="min-h-screen">

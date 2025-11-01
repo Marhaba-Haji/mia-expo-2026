@@ -55,7 +55,7 @@ const App = () => (
             <Route path="/exhibitor-portal" element={<ExhibitorPortal />} />
             <Route path="/admin-portal" element={<AdminPortal />} />
             <Route path="/directory" element={<Directory />} />
-            <Route path="/exhibitor/:id" element={<ExhibitorDetail />} />
+            <Route path="/exhibitor/:slug" element={<ExhibitorDetail />} />
             <Route path="/matchmaking" element={<Matchmaking />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin" element={<Admin />} />
