@@ -128,9 +128,6 @@ export default function Hero() {
               <Button asChild variant="hero" size="lg">
                 <Link to="/exhibitor-packages">{t('hero.ctaExhibit')}</Link>
               </Button>
-              <Button asChild variant="premium" size="lg">
-                <Link to="/visitor-info">{t('hero.ctaTickets')}</Link>
-              </Button>
               <Button asChild variant="outline" size="lg">
                 <Link to="/sponsor-opportunities">{t('hero.ctaSponsor')}</Link>
               </Button>

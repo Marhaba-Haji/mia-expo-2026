@@ -103,13 +103,13 @@ export default function Stats() {
     },
     { 
       icon: <MapPin className="w-8 h-8" />,
-      value: 10,
+      value: 25,
       suffix: '+',
       label: 'Cities'
     },
     { 
       icon: <Layers className="w-8 h-8" />,
-      value: 20,
+      value: 60,
       suffix: '+',
       label: 'Business Categories'
     },

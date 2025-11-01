@@ -2,6 +2,7 @@ import Hero from "@/components/home/Hero";
 import Stats from "@/components/home/Stats";
 import Sectors from "@/components/home/Sectors";
 import WhyVisitTeaser from "@/components/home/WhyVisitTeaser";
+import Collaborations from "@/components/home/Collaborations";
 import Gallery from "@/components/home/Gallery";
 import Testimonials from "@/components/home/Testimonials";
 import SponsorsMarquee from "@/components/home/SponsorsMarquee";
@@ -44,6 +45,7 @@ const Index = () => {
       <Gallery />
       <Testimonials />
       <SponsorsMarquee />
+      <Collaborations />
     </main>
   );
 };

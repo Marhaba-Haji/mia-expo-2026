@@ -16,7 +16,7 @@ export default function WhyVisitTeaser() {
   const benefits = [
     {
       icon: <Users className="h-6 w-6" />,
-      title: "Connect with 600+ Exhibitors",
+      title: "Connect with 200+ Exhibitors",
       description: "Access India's leading businesses under one roof"
     },
     {
@@ -57,7 +57,7 @@ export default function WhyVisitTeaser() {
             Why Should You Visit?
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-2">
-            Join 35,000+ business professionals discovering unlimited opportunities to grow, 
+            Join 20,000+ business professionals discovering unlimited opportunities to grow, 
             source, and network at India's most impactful inclusive trade show.
           </p>
           <p className="text-sm text-muted-foreground">
@@ -129,10 +129,6 @@ export default function WhyVisitTeaser() {
                   <div className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4" />
                     <span>No Registration Fee</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4" />
-                    <span>Instant QR Pass</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <CheckCircle className="h-4 w-4" />
