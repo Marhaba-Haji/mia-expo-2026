@@ -131,6 +131,7 @@ export type Database = {
           package_type: string | null
           phone: string | null
           products_services: string | null
+          slug: string | null
           state: string | null
           status: string | null
           tagline: string | null
@@ -172,6 +173,7 @@ export type Database = {
           package_type?: string | null
           phone?: string | null
           products_services?: string | null
+          slug?: string | null
           state?: string | null
           status?: string | null
           tagline?: string | null
@@ -213,6 +215,7 @@ export type Database = {
           package_type?: string | null
           phone?: string | null
           products_services?: string | null
+          slug?: string | null
           state?: string | null
           status?: string | null
           tagline?: string | null
@@ -634,6 +637,7 @@ export type Database = {
     Functions: {
       execute_sql: { Args: { sql_query: string }; Returns: Json }
       execute_sql_write: { Args: { sql_query: string }; Returns: Json }
+      generate_slug: { Args: { text_input: string }; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
