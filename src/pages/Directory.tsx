@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -31,6 +31,8 @@ import {
   Grid3X3,
   List,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   X,
   CheckCircle,
   ArrowRight,
@@ -69,10 +71,30 @@ export default function Directory() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [sortBy, setSortBy] = useState("name");
   const [showFilters, setShowFilters] = useState(false);
+  
+  // Carousel controls
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const carouselInnerRef = useRef<HTMLDivElement>(null);
+  const [carouselPaused, setCarouselPaused] = useState(false);
+  const [scrollOffset, setScrollOffset] = useState(0);
 
   useEffect(() => {
     fetchExhibitors();
   }, []);
+
+  // Carousel scroll effect
+  useEffect(() => {
+    if (carouselInnerRef.current) {
+      if (carouselPaused) {
+        carouselInnerRef.current.style.transform = `translateX(${scrollOffset}px)`;
+        carouselInnerRef.current.style.transition = 'transform 0.3s ease-out';
+      } else {
+        carouselInnerRef.current.style.transform = '';
+        carouselInnerRef.current.style.transition = '';
+        setScrollOffset(0);
+      }
+    }
+  }, [carouselPaused, scrollOffset]);
 
   const fetchExhibitors = async () => {
     try {
@@ -178,7 +200,7 @@ export default function Directory() {
         <div className="absolute inset-0 bg-hero-gradient opacity-20" aria-hidden />
         <div className="absolute -inset-40 bg-[radial-gradient(ellipse_at_top_left,hsla(var(--primary)/.25),transparent_50%),radial-gradient(ellipse_at_bottom_right,hsla(var(--accent)/.25),transparent_50%)]" aria-hidden />
         
-        <div className="container relative py-16 md:py-24">
+        <div className="container relative pt-12 md:pt-16 pb-6 md:pb-8">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -188,10 +210,6 @@ export default function Directory() {
               <h1 className="font-brand text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-4 md:mb-6 px-4">
                 Exhibitor Directory
               </h1>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 md:mb-8 max-w-3xl mx-auto px-4">
-                Discover 600+ innovative exhibitors across all sectors. Connect with businesses 
-                from Muslim, Sikh, Christian, Parsi, and Jain communities.
-              </p>
               
               {/* Search Bar */}
               <div className="relative max-w-2xl mx-auto mb-6 md:mb-8 px-4">
@@ -211,22 +229,68 @@ export default function Directory() {
       {/* Featured Exhibitors */}
       {exhibitorData.length > 0 && (() => {
         const premiumExhibitors = exhibitorData.filter(exhibitor => exhibitor.package_type === 'Premium');
+
+        const scrollLeft = () => {
+          const scrollAmount = window.innerWidth >= 768 ? 344 : 296;
+          setScrollOffset(prev => prev - scrollAmount);
+          setCarouselPaused(true);
+          setTimeout(() => setCarouselPaused(false), 2000);
+        };
+
+        const scrollRight = () => {
+          const scrollAmount = window.innerWidth >= 768 ? 344 : 296;
+          setScrollOffset(prev => prev + scrollAmount);
+          setCarouselPaused(true);
+          setTimeout(() => setCarouselPaused(false), 2000);
+        };
+
         return premiumExhibitors.length > 0 && (
           <section className="py-12 md:py-16 lg:py-20">
             <div className="container px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-                className="text-center mb-8 md:mb-12"
+            <div className="relative mb-8 md:mb-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center"
               >
-                <h2 className="font-brand text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6">Our Exhibitors</h2>
-                <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto px-4">
-                  Discover our exhibitors showcasing cutting-edge innovations and solutions.
-              </p>
-            </motion.div>
+                <h2 className="font-brand text-2xl sm:text-3xl md:text-4xl mb-4 md:mb-6">MIA Expo 2026 Premium Exhibitors</h2>
+              </motion.div>
+              
+              {/* Scroll Controls */}
+              <div className="absolute top-0 right-0 flex gap-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={scrollLeft}
+                  className="h-8 w-8 md:h-10 md:w-10"
+                  aria-label="Scroll left"
+                >
+                  <ChevronLeft className="h-4 w-4 md:h-5 md:w-5" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={scrollRight}
+                  className="h-8 w-8 md:h-10 md:w-10"
+                  aria-label="Scroll right"
+                >
+                  <ChevronRight className="h-4 w-4 md:h-5 md:w-5" />
+                </Button>
+              </div>
+            </div>
 
-              <div className="relative w-full overflow-hidden py-8">
+              <div className="relative w-full py-8">
+                <div 
+                  ref={carouselRef}
+                  className="overflow-x-auto scrollbar-hide"
+                  style={{
+                    scrollBehavior: 'smooth',
+                    scrollbarWidth: 'none',
+                    msOverflowStyle: 'none',
+                    WebkitOverflowScrolling: 'touch',
+                  }}
+                >
                 <style dangerouslySetInnerHTML={{ __html: `
                   @keyframes exhibitorScroll {
                     0% {
@@ -237,15 +301,19 @@ export default function Directory() {
                     }
                   }
                   .exhibitor-carousel {
-                    animation: exhibitorScroll ${Math.max(premiumExhibitors.length * 15, 60)}s linear infinite;
+                    animation: ${carouselPaused ? 'none' : `exhibitorScroll ${Math.max(premiumExhibitors.length * 15, 60)}s linear infinite`};
                   }
                   @media (prefers-reduced-motion: reduce) {
                     .exhibitor-carousel {
                       animation: none;
                     }
                   }
+                  .scrollbar-hide::-webkit-scrollbar {
+                    display: none;
+                  }
                 `}} />
                 <div 
+                  ref={carouselInnerRef}
                   className="flex gap-4 md:gap-6 exhibitor-carousel"
                   style={{
                     width: 'max-content',
@@ -322,6 +390,7 @@ export default function Directory() {
                     </Card>
                   </div>
                 ))}
+                </div>
               </div>
             </div>
         </div>
