@@ -336,28 +336,29 @@ export default function SponsorOpportunities() {
 
   const whySponsor = [
     {
-      icon: <Users className="h-8 w-8" />,
-      title: "35,000+ Qualified Visitors",
-      description: "High-intent business leaders and decision makers from across India and 20+ countries",
-      metric: "35,000+"
+      icon: <Award className="h-8 w-8" />,
+      title: "Strengthen Brand Positioning",
+      description: "Establish your brand as a leader in supporting inclusive business growth and community development"
     },
     {
-      icon: <Target className="h-8 w-8" />,
-      title: "4,500+ B2B Meetings",
-      description: "Pre-scheduled meetings with decision makers and key stakeholders",
-      metric: "4,500+"
+      icon: <Eye className="h-8 w-8" />,
+      title: "Boost Brand Perception & Awareness",
+      description: "Elevate your brand visibility through dedicated media coverage and strategic marketing campaigns"
     },
     {
       icon: <Globe className="h-8 w-8" />,
-      title: "50M+ Media Reach",
-      description: "Extensive press coverage and digital marketing across international platforms",
-      metric: "50M+"
+      title: "Expand Market Reach & Influence",
+      description: "Connect with diverse business communities and expand your market presence across multiple states"
     },
     {
-      icon: <Building2 className="h-8 w-8" />,
-      title: "600+ Exhibitors",
-      description: "Connect with Muslim, Sikh, Christian, Parsi, and Jain business communities",
-      metric: "600+"
+      icon: <Handshake className="h-8 w-8" />,
+      title: "Build Strategic Connections",
+      description: "Forge meaningful partnerships with industry leaders, government bodies, and key decision makers"
+    },
+    {
+      icon: <Heart className="h-8 w-8" />,
+      title: "Support Inclusive Growth",
+      description: "Contribute to empowering emerging businesses and driving collective community growth"
     }
   ];
 
@@ -579,41 +580,40 @@ export default function SponsorOpportunities() {
                 Partner with India's Premier Inclusive Business Expo
               </h1>
               <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-                Reach 35,000+ qualified business leaders, 600+ exhibitors, and 20+ countries. 
-                Join us in creating meaningful connections and driving inclusive economic growth.
+                By becoming a sponsor, you don't just gain elevated visibility, dedicated social media features, and exclusive brand interviews—you play a pivotal role in empowering emerging businesses and driving the collective growth of our community.
               </p>
               
               {/* Key Metrics */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto mb-8">
                 <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">35,000+</div>
+                  <div className="text-2xl font-bold text-primary">20,000+</div>
                   <div className="text-xs text-muted-foreground">Trade Visitors</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">600+</div>
+                  <div className="text-2xl font-bold text-primary">200+</div>
                   <div className="text-xs text-muted-foreground">Exhibitors</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">20+</div>
-                  <div className="text-xs text-muted-foreground">Countries</div>
+                  <div className="text-2xl font-bold text-primary">5+</div>
+                  <div className="text-xs text-muted-foreground">States</div>
                 </div>
                 <div className="bg-white/10 backdrop-blur rounded-lg p-4">
-                  <div className="text-2xl font-bold text-primary">4,500+</div>
-                  <div className="text-xs text-muted-foreground">B2B Meetings</div>
+                  <div className="text-2xl font-bold text-primary">3</div>
+                  <div className="text-xs text-muted-foreground">Days</div>
                 </div>
               </div>
               
               <div className="flex flex-wrap justify-center gap-4">
                 <Button asChild variant="hero" size="lg">
-                  <Link to="#packages">
+                  <a href="#packages" onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById('packages');
+                    if (element) {
+                      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                  }}>
                     <Crown className="mr-2 h-4 w-4" />
                     Explore Packages
-                  </Link>
-                </Button>
-                <Button asChild variant="secondary" size="lg" className="border border-border shadow-elegant">
-                  <a href="#contact">
-                    <Download className="mr-2 h-4 w-4" />
-                    Download Kit
                   </a>
                 </Button>
               </div>
@@ -638,7 +638,7 @@ export default function SponsorOpportunities() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
             {whySponsor.map((item, index) => (
               <motion.div
                 key={item.title}
@@ -649,9 +649,8 @@ export default function SponsorOpportunities() {
                 <Card className="p-6 h-full hover:shadow-glow transition-shadow text-center">
                   <CardContent className="p-0">
                     <div className="text-primary mb-4 flex justify-center">{item.icon}</div>
-                    <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                    <p className="text-muted-foreground text-sm mb-4">{item.description}</p>
-                    <div className="text-2xl font-bold text-primary">{item.metric}</div>
+                    <h3 className="font-semibold text-lg mb-3">{item.title}</h3>
+                    <p className="text-muted-foreground text-sm">{item.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -799,95 +798,6 @@ export default function SponsorOpportunities() {
         </div>
       </section>
 
-      {/* ROI & Business Impact */}
-      <section className="py-16 md:py-20">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-brand text-3xl md:text-4xl mb-6">ROI & Business Impact</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Our sponsors consistently achieve exceptional returns on investment through 
-              targeted lead generation, brand visibility, and strategic networking.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {roiMetrics.map((metric, index) => (
-              <motion.div
-                key={metric.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="p-6 h-full hover:shadow-glow transition-shadow text-center">
-                  <CardContent className="p-0">
-                    <div className="text-primary mb-4 flex justify-center">{metric.icon}</div>
-                    <h3 className="font-semibold text-lg mb-2">{metric.title}</h3>
-                    <p className="text-3xl font-bold text-primary mb-2">{metric.value}</p>
-                    <p className="text-muted-foreground text-sm">{metric.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Audience Demographics */}
-      <section className="py-16 md:py-20 bg-muted/30">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-brand text-3xl md:text-4xl mb-6">Audience Demographics</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Connect with a diverse, qualified audience of business leaders and decision makers 
-              from across India and international markets.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            {audienceDemographics.map((demo, index) => (
-              <motion.div
-                key={demo.category}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="p-6">
-                  <CardContent className="p-0">
-                    <h3 className="font-semibold text-lg mb-4">{demo.category}</h3>
-                    {demo.percentage && (
-                      <div className="text-3xl font-bold text-primary mb-2">{demo.percentage}</div>
-                    )}
-                    {demo.description && (
-                      <p className="text-muted-foreground text-sm">{demo.description}</p>
-                    )}
-                    {demo.breakdown && (
-                      <div className="space-y-2">
-                        {demo.breakdown.map((item, idx) => (
-                          <div key={idx} className="flex justify-between items-center">
-                            <span className="text-sm">{item.sector || item.community}</span>
-                            <span className="font-medium text-primary">{item.percentage}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Custom Sponsorship Opportunities */}
       <section className="py-16 md:py-20">
         <div className="container">
@@ -928,54 +838,6 @@ export default function SponsorOpportunities() {
                           </li>
                         ))}
                       </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Success Stories */}
-      <section className="py-16 md:py-20 bg-muted/30">
-        <div className="container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h2 className="font-brand text-3xl md:text-4xl mb-6">Success Stories</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-              Hear from our previous sponsors about their experience and the business impact 
-              they achieved through MIA Business Expo.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card className="p-6 h-full hover:shadow-glow transition-shadow">
-                  <CardContent className="p-0">
-                    <div className="text-primary mb-4 flex justify-center">
-                      <Quote className="h-8 w-8" />
-                    </div>
-                    <blockquote className="text-muted-foreground text-sm mb-4 italic">
-                      "{testimonial.quote}"
-                    </blockquote>
-                    <div className="border-t pt-4">
-                      <div className="font-medium text-sm">{testimonial.author}</div>
-                      <div className="text-xs text-muted-foreground">{testimonial.role}</div>
-                      <div className="text-xs text-muted-foreground">{testimonial.company}</div>
-                      <Badge variant="secondary" className="mt-2 text-xs">
-                        {testimonial.package}
-                      </Badge>
                     </div>
                   </CardContent>
                 </Card>
