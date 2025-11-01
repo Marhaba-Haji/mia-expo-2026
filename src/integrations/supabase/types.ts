@@ -105,6 +105,9 @@ export type Database = {
           address: string | null
           awards: string[] | null
           booth_number: string | null
+          brand_name: string | null
+          business_type: string | null
+          catalog_url: string | null
           certifications: string[] | null
           city: string | null
           company_name: string
@@ -143,6 +146,9 @@ export type Database = {
           address?: string | null
           awards?: string[] | null
           booth_number?: string | null
+          brand_name?: string | null
+          business_type?: string | null
+          catalog_url?: string | null
           certifications?: string[] | null
           city?: string | null
           company_name: string
@@ -181,6 +187,9 @@ export type Database = {
           address?: string | null
           awards?: string[] | null
           booth_number?: string | null
+          brand_name?: string | null
+          business_type?: string | null
+          catalog_url?: string | null
           certifications?: string[] | null
           city?: string | null
           company_name?: string
@@ -623,14 +632,8 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      execute_sql: {
-        Args: { sql_query: string }
-        Returns: Json
-      }
-      execute_sql_write: {
-        Args: { sql_query: string }
-        Returns: Json
-      }
+      execute_sql: { Args: { sql_query: string }; Returns: Json }
+      execute_sql_write: { Args: { sql_query: string }; Returns: Json }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
